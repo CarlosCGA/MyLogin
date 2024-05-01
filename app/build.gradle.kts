@@ -78,5 +78,14 @@ dependencies {
     implementation(libs.hilt.android) //"com.google.dagger:hilt-android:2.46"
     kapt(libs.hilt.compiler) //"com.google.dagger:hilt-compiler:2.46"
 
+    //VIEWMODEL
+    implementation(libs.androidx.lifecycle.viewmodel.ktx) //"androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0"
+    //VIEWMODEL Compose utilities
+    implementation(libs.androidx.lifecycle.viewmodel.compose) //"androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0"
+    // LIVEDATA
+    implementation(libs.lifecycle.livedata.ktx) //"androidx.lifecycle:lifecycle-livedata-ktx:2.7.0"
+    //Annotation processor
+    implementation(libs.androidx.lifecycle.common.java8) //"androidx.lifecycle:lifecycle-common-java8:2.7.0"
+
 
 }
