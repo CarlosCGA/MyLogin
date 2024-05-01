@@ -74,6 +74,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    //UPDATE FROM KAPT TO KSP WHEN DAGGER HILT COMPATIBLE
+
     //DAGGER HILT
     implementation(libs.hilt.android) //"com.google.dagger:hilt-android:2.46"
     kapt(libs.hilt.compiler) //"com.google.dagger:hilt-compiler:2.46"
@@ -86,6 +88,14 @@ dependencies {
     implementation(libs.lifecycle.livedata.ktx) //"androidx.lifecycle:lifecycle-livedata-ktx:2.7.0"
     //Annotation processor
     implementation(libs.androidx.lifecycle.common.java8) //"androidx.lifecycle:lifecycle-common-java8:2.7.0"
+
+    //ROOM
+    implementation(libs.androidx.room.runtime) //"androidx.room:room-runtime:2.6.1"
+    //Kotlin Extensions and Coroutines support for Room
+    implementation(libs.androidx.room.ktx) //"androidx.room:room-ktx:2.6.1"
+    //Annotation processor
+    annotationProcessor(libs.androidx.room.compiler) //"androidx.room:room-compiler:2.6.1"
+    kapt(libs.androidx.room.compiler) //"androidx.room:room-compiler:2.6.1"
 
 
 }
