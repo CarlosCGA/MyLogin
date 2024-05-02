@@ -21,9 +21,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-@Preview
 @Composable
-fun LogInScreen() {
+fun LogInScreen(logInViewModel: LogInViewModel) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         //Header(modifier = Modifier.align(Alignment.TopCenter))
@@ -116,4 +115,10 @@ fun ButtonLogIn(modifier: Modifier) {
     Button(modifier = modifier, shape = RoundedCornerShape(6.dp), onClick = { /*TODO*/ }) {
         Text(text = "LogIn")
     }
+}
+
+@Preview(showSystemUi = true)
+@Composable
+fun PreviewLogInScreen() {
+    LogInScreen(LogInViewModel())
 }
