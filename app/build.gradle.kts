@@ -74,6 +74,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    //ICONS EXTENDED
+    implementation(libs.androidx.material.icons.extended)
+
     //UPDATE FROM KAPT TO KSP WHEN DAGGER HILT COMPATIBLE
 
     //DAGGER HILT
