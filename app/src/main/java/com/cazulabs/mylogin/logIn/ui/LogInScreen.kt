@@ -32,7 +32,8 @@ fun LogInScreen(logInViewModel: LogInViewModel) {
             Body(
                 modifier = Modifier
                     .weight(1F)
-                    .align(Alignment.CenterHorizontally)
+                    .align(Alignment.CenterHorizontally),
+                logInViewModel
             )
         }
 
@@ -40,15 +41,15 @@ fun LogInScreen(logInViewModel: LogInViewModel) {
 }
 
 @Composable
-fun Body(modifier: Modifier) {
+fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
     Column(modifier = modifier) {
         LogInTitle(modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.size(36.dp))
         LogInModeSelector(modifier = Modifier.align(Alignment.CenterHorizontally))
 
-        InputEmail()
+        InputEmail(logInViewModel)
         Spacer(modifier = Modifier.size(16.dp))
-        InputPassword()
+        InputPassword(logInViewModel)
 
         Spacer(modifier = Modifier.size(24.dp))
 
@@ -72,33 +73,33 @@ fun LogInModeSelector(modifier: Modifier) {
 }
 
 @Composable
-fun InputEmail() {
+fun InputEmail(logInViewModel: LogInViewModel) {
     OutlinedTextField(
         modifier = Modifier,
-        value = "",
-        onValueChange = {},
+        value = logInViewModel.email.value.let { "" },
+        onValueChange = { newEmail -> logInViewModel.onLogInChanged(email = newEmail) },
         singleLine = true,
         label = { Text(text = "Email") },
     )
 }
 
 @Composable
-fun InputPhone() {
+fun InputPhone(logInViewModel: LogInViewModel) {
     OutlinedTextField(
         modifier = Modifier,
-        value = "",
-        onValueChange = {},
+        value = logInViewModel.phone.value.let { "" },
+        onValueChange = { newPhone -> logInViewModel.onLogInChanged(phone = newPhone) },
         singleLine = true,
         label = { Text(text = "Phone") }
     )
 }
 
 @Composable
-fun InputPassword() {
+fun InputPassword(logInViewModel: LogInViewModel) {
     OutlinedTextField(
         modifier = Modifier,
-        value = "",
-        onValueChange = {},
+        value = logInViewModel.password.value.let { "" },
+        onValueChange = { newPassword -> logInViewModel.onLogInChanged(password = newPassword) },
         singleLine = true,
         label = { Text(text = "Password") },
         trailingIcon = {
