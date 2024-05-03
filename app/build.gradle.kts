@@ -89,8 +89,14 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose) //"androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0"
     // LIVEDATA
     implementation(libs.lifecycle.livedata.ktx) //"androidx.lifecycle:lifecycle-livedata-ktx:2.7.0"
+    implementation(libs.androidx.runtime.livedata) //"androidx.compose.runtime:runtime-livedata:1.6.7"
     //Annotation processor
     implementation(libs.androidx.lifecycle.common.java8) //"androidx.lifecycle:lifecycle-common-java8:2.7.0"
+
+
+    //libs.androidx.runtime.livedata
+    //libs.androidx.lifecycle.runtime.ktx
+
 
     //ROOM
     implementation(libs.androidx.room.runtime) //"androidx.room:room-runtime:2.6.1"
