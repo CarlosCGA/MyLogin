@@ -15,6 +15,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -42,14 +44,22 @@ fun LogInScreen(logInViewModel: LogInViewModel) {
 
 @Composable
 fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
+    val email by logInViewModel.email.observeAsState(initial = "")
+    val phone by logInViewModel.phone.observeAsState(initial = "")
+    val password by logInViewModel.password.observeAsState(initial = "")
+
     Column(modifier = modifier) {
         LogInTitle(modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.size(36.dp))
         LogInModeSelector(modifier = Modifier.align(Alignment.CenterHorizontally))
 
-        InputEmail(logInViewModel)
+        Email(email) { newEmail ->
+            logInViewModel.onLogInChanged(newEmail, phone, password)
+        }
         Spacer(modifier = Modifier.size(16.dp))
-        InputPassword(logInViewModel)
+        Password(password) { newPassword ->
+            logInViewModel.onLogInChanged(email, phone, newPassword)
+        }
 
         Spacer(modifier = Modifier.size(24.dp))
 
@@ -73,33 +83,39 @@ fun LogInModeSelector(modifier: Modifier) {
 }
 
 @Composable
-fun InputEmail(logInViewModel: LogInViewModel) {
+fun Email(email: String, onValueChange: (String) -> Unit) {
     OutlinedTextField(
         modifier = Modifier,
-        value = logInViewModel.email.value.let { "" },
-        onValueChange = { newEmail -> logInViewModel.onLogInChanged(email = newEmail) },
+        value = email,
+        onValueChange = { newEmail ->
+            onValueChange(newEmail)
+        },
         singleLine = true,
         label = { Text(text = "Email") },
     )
 }
 
 @Composable
-fun InputPhone(logInViewModel: LogInViewModel) {
+fun InputPhone(phone: String, onValueChange: (String) -> Unit) {
     OutlinedTextField(
         modifier = Modifier,
-        value = logInViewModel.phone.value.let { "" },
-        onValueChange = { newPhone -> logInViewModel.onLogInChanged(phone = newPhone) },
+        value = phone,
+        onValueChange = { newPhone ->
+            onValueChange(newPhone)
+        },
         singleLine = true,
         label = { Text(text = "Phone") }
     )
 }
 
 @Composable
-fun InputPassword(logInViewModel: LogInViewModel) {
+fun Password(password: String, onValueChange: (String) -> Unit) {
     OutlinedTextField(
         modifier = Modifier,
-        value = logInViewModel.password.value.let { "" },
-        onValueChange = { newPassword -> logInViewModel.onLogInChanged(password = newPassword) },
+        value = password,
+        onValueChange = { newPassword ->
+            onValueChange(newPassword)
+        },
         singleLine = true,
         label = { Text(text = "Password") },
         trailingIcon = {
