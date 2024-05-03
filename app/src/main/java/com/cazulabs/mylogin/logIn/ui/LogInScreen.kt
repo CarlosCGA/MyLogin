@@ -56,6 +56,10 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
         Email(email) { newEmail ->
             logInViewModel.onLogInChanged(newEmail, phone, password)
         }
+        Spacer(modifier = Modifier.size(8.dp))
+        Phone(phone) { newPhone ->
+            logInViewModel.onLogInChanged(email, newPhone, password)
+        }
         Spacer(modifier = Modifier.size(16.dp))
         Password(password) { newPassword ->
             logInViewModel.onLogInChanged(email, phone, newPassword)
@@ -96,7 +100,7 @@ fun Email(email: String, onValueChange: (String) -> Unit) {
 }
 
 @Composable
-fun InputPhone(phone: String, onValueChange: (String) -> Unit) {
+fun Phone(phone: String, onValueChange: (String) -> Unit) {
     OutlinedTextField(
         modifier = Modifier,
         value = phone,
