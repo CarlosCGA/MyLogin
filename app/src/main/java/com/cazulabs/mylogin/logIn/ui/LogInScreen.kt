@@ -37,8 +37,6 @@ import androidx.compose.ui.unit.dp
 fun LogInScreen(logInViewModel: LogInViewModel) {
 
     Box(modifier = Modifier.fillMaxSize()) {
-        //Header(modifier = Modifier.align(Alignment.TopCenter))
-        //Body(modifier = Modifier.align(Alignment.Center))
         Column(modifier = Modifier.fillMaxWidth()) {
             Spacer(modifier = Modifier.weight(0.33F))
             Body(
@@ -47,9 +45,18 @@ fun LogInScreen(logInViewModel: LogInViewModel) {
                     .align(Alignment.CenterHorizontally),
                 logInViewModel
             )
+            Spacer(modifier = Modifier.size(36.dp))
+            Footer(
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
         }
 
     }
+}
+
+@Composable
+fun Footer(modifier: Modifier) {
+    Text(text = "If do not have account yet. Sign in")
 }
 
 @Composable
@@ -180,10 +187,11 @@ fun ButtonLogIn(modifier: Modifier, isLogInEnabled: Boolean, logInViewModel: Log
     }
 }
 
+
 /*
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewLogInScreen() {
-    LogInScreen(LogInViewModel())
+    LogInScreen(logInViewModel)
 }
 */
