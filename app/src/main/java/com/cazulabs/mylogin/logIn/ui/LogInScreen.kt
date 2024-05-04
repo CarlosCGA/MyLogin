@@ -7,12 +7,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,6 +20,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -51,7 +52,6 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
     Column(modifier = modifier) {
         LogInTitle(modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.size(36.dp))
-        LogInModeSelector(modifier = Modifier.align(Alignment.CenterHorizontally))
 
         Email(email) { newEmail ->
             logInViewModel.onLogInChanged(newEmail, phone, password)
@@ -61,6 +61,7 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
             logInViewModel.onLogInChanged(email, newPhone, password)
         }
         Spacer(modifier = Modifier.size(16.dp))
+
         Password(password) { newPassword ->
             logInViewModel.onLogInChanged(email, phone, newPassword)
         }
@@ -81,12 +82,6 @@ fun LogInTitle(modifier: Modifier) {
 }
 
 @Composable
-fun LogInModeSelector(modifier: Modifier) {
-    Switch(modifier = modifier, checked = false, onCheckedChange = {})
-
-}
-
-@Composable
 fun Email(email: String, onValueChange: (String) -> Unit) {
     OutlinedTextField(
         modifier = Modifier,
@@ -96,6 +91,7 @@ fun Email(email: String, onValueChange: (String) -> Unit) {
         },
         singleLine = true,
         label = { Text(text = "Email") },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
     )
 }
 
@@ -108,7 +104,8 @@ fun Phone(phone: String, onValueChange: (String) -> Unit) {
             onValueChange(newPhone)
         },
         singleLine = true,
-        label = { Text(text = "Phone") }
+        label = { Text(text = "Phone") },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
     )
 }
 
@@ -127,7 +124,8 @@ fun Password(password: String, onValueChange: (String) -> Unit) {
                 imageVector = Icons.Outlined.Visibility,
                 contentDescription = "password"
             )
-        }
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
     )
 }
 
