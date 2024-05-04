@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.Button
@@ -102,6 +105,9 @@ fun Email(email: String, onValueChange: (String) -> Unit) {
         },
         singleLine = true,
         label = { Text(text = "Email") },
+        leadingIcon = {
+            Icon(imageVector = Icons.Outlined.Email, contentDescription = "email")
+        },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
     )
 }
@@ -116,6 +122,9 @@ fun Phone(phone: String, onValueChange: (String) -> Unit) {
         },
         singleLine = true,
         label = { Text(text = "Phone") },
+        leadingIcon = {
+            Icon(imageVector = Icons.Outlined.Phone, contentDescription = "phone")
+        },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
     )
 }
@@ -134,6 +143,9 @@ fun Password(password: String, onValueChange: (String) -> Unit) {
         },
         singleLine = true,
         label = { Text(text = "Password") },
+        leadingIcon = {
+            Icon(imageVector = Icons.Outlined.Lock, contentDescription = "lock")
+        },
         trailingIcon = {
             Icon(
                 modifier = Modifier.clickable {
