@@ -1,14 +1,18 @@
 package com.cazulabs.mylogin.logIn.ui
 
+import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.cazulabs.mylogin.logIn.domain.LogInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LogInViewModel @Inject constructor() : ViewModel() {
+class LogInViewModel @Inject constructor(private val logInUseCase: LogInUseCase) : ViewModel() {
 
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
@@ -46,6 +50,18 @@ class LogInViewModel @Inject constructor() : ViewModel() {
                     && Patterns.PHONE.matcher(phone).matches()
                     && password.isNotBlank()
                     && password.isNotEmpty()
+    }
+
+    /**
+     * Do logIn method
+     */
+    fun onLogIn() {
+        viewModelScope.launch {
+            val result = logInUseCase(email.value!!, password.value!!)
+
+            if(result)
+                Log.i("CARLOS", "GO IN!")
+        }
     }
 
 }

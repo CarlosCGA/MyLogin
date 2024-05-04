@@ -31,7 +31,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -81,7 +80,8 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
 
         ButtonLogIn(
             modifier = Modifier.align(Alignment.CenterHorizontally),
-            isLogInEnabled = isLogInEnabled
+            isLogInEnabled = isLogInEnabled,
+            logInViewModel = logInViewModel
         )
     }
 }
@@ -169,19 +169,21 @@ fun Password(password: String, onValueChange: (String) -> Unit) {
 }
 
 @Composable
-fun ButtonLogIn(modifier: Modifier, isLogInEnabled: Boolean) {
+fun ButtonLogIn(modifier: Modifier, isLogInEnabled: Boolean, logInViewModel: LogInViewModel) {
     Button(
         modifier = modifier,
         shape = RoundedCornerShape(6.dp),
-        onClick = { /*TODO*/ },
+        onClick = { logInViewModel.onLogIn() },
         enabled = isLogInEnabled
     ) {
         Text(text = "LogIn")
     }
 }
 
+/*
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewLogInScreen() {
     LogInScreen(LogInViewModel())
 }
+*/
