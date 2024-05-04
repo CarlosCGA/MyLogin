@@ -80,29 +80,31 @@ dependencies {
     //UPDATE FROM KAPT TO KSP WHEN DAGGER HILT COMPATIBLE
 
     //DAGGER HILT
-    implementation(libs.hilt.android) //"com.google.dagger:hilt-android:2.46"
-    kapt(libs.hilt.compiler) //"com.google.dagger:hilt-compiler:2.46"
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     //VIEWMODEL
-    implementation(libs.androidx.lifecycle.viewmodel.ktx) //"androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0"
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     //VIEWMODEL Compose utilities
-    implementation(libs.androidx.lifecycle.viewmodel.compose) //"androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0"
-    // LIVEDATA
-    implementation(libs.lifecycle.livedata.ktx) //"androidx.lifecycle:lifecycle-livedata-ktx:2.7.0"
-    implementation(libs.androidx.runtime.livedata) //"androidx.compose.runtime:runtime-livedata:1.6.7"
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    //LIVEDATA
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.androidx.runtime.livedata)
     //Annotation processor
-    implementation(libs.androidx.lifecycle.common.java8) //"androidx.lifecycle:lifecycle-common-java8:2.7.0"
+    implementation(libs.androidx.lifecycle.common.java8)
 
     //RETROFIT
     implementation(libs.retrofit)
+    //GSON
+    implementation(libs.converter.gson)
 
     //ROOM
-    implementation(libs.androidx.room.runtime) //"androidx.room:room-runtime:2.6.1"
+    implementation(libs.androidx.room.runtime)
     //Kotlin Extensions and Coroutines support for Room
-    implementation(libs.androidx.room.ktx) //"androidx.room:room-ktx:2.6.1"
+    implementation(libs.androidx.room.ktx)
     //Annotation processor
-    annotationProcessor(libs.androidx.room.compiler) //"androidx.room:room-compiler:2.6.1"
-    kapt(libs.androidx.room.compiler) //"androidx.room:room-compiler:2.6.1"
+    annotationProcessor(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
 
 
 }
