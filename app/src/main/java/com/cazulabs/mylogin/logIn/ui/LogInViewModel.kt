@@ -18,6 +18,9 @@ class LogInViewModel @Inject constructor() : ViewModel() {
     private val _password = MutableLiveData<String>()
     val password: LiveData<String> = _password
 
+    /**
+     * Update viewModel variables when updated in input textFields
+     */
     fun onLogInChanged(
         email: String,
         phone: String,
@@ -30,6 +33,9 @@ class LogInViewModel @Inject constructor() : ViewModel() {
         enableLogIn(email, phone, password)
     }
 
+    /**
+     * Conditions of input logIn to enable logIn button
+     */
     private fun enableLogIn(email: String, phone: String, password: String) {
         //TODO manage logIn button enable
     }
