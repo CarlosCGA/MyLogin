@@ -93,10 +93,8 @@ dependencies {
     //Annotation processor
     implementation(libs.androidx.lifecycle.common.java8) //"androidx.lifecycle:lifecycle-common-java8:2.7.0"
 
-
-    //libs.androidx.runtime.livedata
-    //libs.androidx.lifecycle.runtime.ktx
-
+    //RETROFIT
+    implementation(libs.retrofit)
 
     //ROOM
     implementation(libs.androidx.room.runtime) //"androidx.room:room-runtime:2.6.1"
