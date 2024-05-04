@@ -55,6 +55,7 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
     val email by logInViewModel.email.observeAsState(initial = "")
     val phone by logInViewModel.phone.observeAsState(initial = "")
     val password by logInViewModel.password.observeAsState(initial = "")
+    val isLogInEnabled by logInViewModel.isLogInEnabled.observeAsState(initial = false)
 
     Column(modifier = modifier) {
         LogInTitle(modifier = Modifier.align(Alignment.CenterHorizontally))
@@ -75,7 +76,10 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
 
         Spacer(modifier = Modifier.size(24.dp))
 
-        ButtonLogIn(modifier = Modifier.align(Alignment.CenterHorizontally))
+        ButtonLogIn(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            isLogInEnabled = isLogInEnabled
+        )
     }
 }
 
@@ -153,8 +157,13 @@ fun Password(password: String, onValueChange: (String) -> Unit) {
 }
 
 @Composable
-fun ButtonLogIn(modifier: Modifier) {
-    Button(modifier = modifier, shape = RoundedCornerShape(6.dp), onClick = { /*TODO*/ }) {
+fun ButtonLogIn(modifier: Modifier, isLogInEnabled: Boolean) {
+    Button(
+        modifier = modifier,
+        shape = RoundedCornerShape(6.dp),
+        onClick = { /*TODO*/ },
+        enabled = isLogInEnabled
+    ) {
         Text(text = "LogIn")
     }
 }
