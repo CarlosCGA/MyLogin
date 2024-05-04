@@ -1,5 +1,6 @@
 package com.cazulabs.mylogin.core.di
 
+import com.cazulabs.mylogin.logIn.data.network.LogInClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,6 +20,12 @@ class NetworkModule {
             .baseUrl("https://run.mocky.io/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideLogInClient(retrofit: Retrofit): LogInClient {
+        return retrofit.create(LogInClient::class.java)
     }
 
 }
