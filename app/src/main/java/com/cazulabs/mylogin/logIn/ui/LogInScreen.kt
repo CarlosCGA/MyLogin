@@ -34,10 +34,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.cazulabs.mylogin.R
+import com.cazulabs.mylogin.core.Routes
 
 @Composable
-fun LogInScreen(logInViewModel: LogInViewModel) {
+fun LogInScreen(navigationController: NavHostController, logInViewModel: LogInViewModel) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -50,26 +52,25 @@ fun LogInScreen(logInViewModel: LogInViewModel) {
             )
             Spacer(modifier = Modifier.size(36.dp))
             Footer(
-                modifier = Modifier.align(Alignment.CenterHorizontally)
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                navigationController
             )
             Spacer(modifier = Modifier.size(16.dp))
         }
-
     }
 }
 
 @Composable
-fun Footer(modifier: Modifier) {
+fun Footer(modifier: Modifier, navigationController: NavHostController) {
     Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
         Text(text = "Do not have account yet? ")
         Text(
-            modifier = Modifier.clickable { },
+            modifier = Modifier.clickable { navigationController.navigate(Routes.SignIn.route) },
             text = "Sign in.",
             color = colorResource(id = R.color.purple_200),
             fontWeight = FontWeight.Bold
         )
     }
-
 }
 
 @Composable
