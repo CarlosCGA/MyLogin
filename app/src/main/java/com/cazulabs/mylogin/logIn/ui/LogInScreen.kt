@@ -34,12 +34,16 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.cazulabs.mylogin.R
 import com.cazulabs.mylogin.core.navigation.Routes
 
 @Composable
-fun LogInScreen(navigationController: NavHostController, logInViewModel: LogInViewModel) {
+fun LogInScreen(
+    navigationController: NavHostController,
+    logInViewModel: LogInViewModel = viewModel()
+) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
