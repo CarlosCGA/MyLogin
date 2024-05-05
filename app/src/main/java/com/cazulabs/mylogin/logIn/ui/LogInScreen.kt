@@ -36,7 +36,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.cazulabs.mylogin.R
-import com.cazulabs.mylogin.core.Routes
+import com.cazulabs.mylogin.core.navigation.Routes
 
 @Composable
 fun LogInScreen(navigationController: NavHostController, logInViewModel: LogInViewModel) {

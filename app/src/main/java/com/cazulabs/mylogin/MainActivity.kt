@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.cazulabs.mylogin.core.Routes
+import com.cazulabs.mylogin.core.navigation.Routes
 import com.cazulabs.mylogin.logIn.ui.LogInScreen
 import com.cazulabs.mylogin.logIn.ui.LogInViewModel
 import com.cazulabs.mylogin.signIn.ui.SignInScreen
