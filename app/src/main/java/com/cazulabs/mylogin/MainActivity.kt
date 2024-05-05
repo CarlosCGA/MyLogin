@@ -33,4 +33,8 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    fun getLogInViewModel(): LogInViewModel {
+        return logInViewModel
+    }
+
 }
