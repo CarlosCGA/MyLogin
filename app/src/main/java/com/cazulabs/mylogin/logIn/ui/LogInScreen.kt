@@ -33,9 +33,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.cazulabs.mylogin.R
 import com.cazulabs.mylogin.core.navigation.Routes
 
@@ -205,10 +207,9 @@ fun ButtonLogIn(modifier: Modifier, isLogInEnabled: Boolean, logInViewModel: Log
 }
 
 
-/*
+
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewLogInScreen() {
-    LogInScreen(logInViewModel)
+    LogInScreen(rememberNavController(), hiltViewModel<LogInViewModel>())
 }
-*/
