@@ -114,7 +114,7 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
 fun LogInTitle(modifier: Modifier) {
     Text(
         modifier = modifier,
-        text = "LogIn",
+        text = "Log In",
         fontWeight = FontWeight.Bold
     )
 }
