@@ -34,7 +34,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.cazulabs.mylogin.R
 import com.cazulabs.mylogin.core.navigation.Routes
@@ -42,9 +42,8 @@ import com.cazulabs.mylogin.core.navigation.Routes
 @Composable
 fun LogInScreen(
     navigationController: NavHostController,
-    logInViewModel: LogInViewModel = viewModel()
+    logInViewModel: LogInViewModel = hiltViewModel<LogInViewModel>()
 ) {
-
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Spacer(modifier = Modifier.weight(0.33F))
