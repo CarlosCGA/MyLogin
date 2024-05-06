@@ -200,7 +200,7 @@ fun ButtonLogIn(modifier: Modifier, isLogInEnabled: Boolean, logInViewModel: Log
         onClick = { logInViewModel.onLogIn() },
         enabled = isLogInEnabled
     ) {
-        Text(text = "LogIn")
+        Text(text = "Log In")
     }
 }
 
