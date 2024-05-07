@@ -88,7 +88,7 @@ fun ButtonSignIn(modifier: Modifier, isLogInEnabled: Boolean, signInViewModel: S
 fun SignInTitle(modifier: Modifier) {
     Text(
         modifier = modifier,
-        text = "SignIn",
+        text = "Sign In",
         fontWeight = FontWeight.Bold
     )
 }
