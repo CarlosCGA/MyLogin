@@ -5,8 +5,8 @@ import javax.inject.Inject
 
 class SignInRepository @Inject constructor(private val api: SignInService){
 
-    suspend fun doSignIn(user: String, phone: String, password: String): Boolean {
-        return api.doSignIn(user, phone, password)
+    suspend fun doSignIn(email: String, phone: String, password: String): Boolean {
+        return api.doSignIn(email, phone, password)
     }
 
 }
