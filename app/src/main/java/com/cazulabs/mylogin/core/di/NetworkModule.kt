@@ -1,6 +1,7 @@
 package com.cazulabs.mylogin.core.di
 
 import com.cazulabs.mylogin.logIn.data.network.LogInClient
+import com.cazulabs.mylogin.signIn.data.network.SignInClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,6 +27,12 @@ class NetworkModule {
     @Provides
     fun provideLogInClient(retrofit: Retrofit): LogInClient {
         return retrofit.create(LogInClient::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSignInClient(retrofit: Retrofit): SignInClient {
+        return retrofit.create(SignInClient::class.java)
     }
 
 }
