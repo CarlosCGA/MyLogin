@@ -73,6 +73,7 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
     val email by signInViewModel.email.observeAsState(initial = "")
     val phone by signInViewModel.phone.observeAsState(initial = "")
     val password by signInViewModel.password.observeAsState(initial = "")
+    val confirmPassword by signInViewModel.confirmPassword.observeAsState(initial = "")
     val isSignInEnabled by signInViewModel.isSignInEnabled.observeAsState(initial = false)
 
     Column(modifier = modifier) {
@@ -80,19 +81,23 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
         Spacer(modifier = Modifier.size(24.dp))
 
         Username(username) { newUsername ->
-            signInViewModel.onSignInChanged(newUsername, email, phone, password)
+            signInViewModel.onSignInChanged(newUsername, email, phone, password, confirmPassword)
         }
         Spacer(modifier = Modifier.size(8.dp))
         Email(email) { newEmail ->
-            signInViewModel.onSignInChanged(username, newEmail, phone, password)
+            signInViewModel.onSignInChanged(username, newEmail, phone, password, confirmPassword)
         }
         Spacer(modifier = Modifier.size(8.dp))
         Phone(phone) { newPhone ->
-            signInViewModel.onSignInChanged(username, email, newPhone, password)
+            signInViewModel.onSignInChanged(username, email, newPhone, password, confirmPassword)
         }
         Spacer(modifier = Modifier.size(8.dp))
         Password(password) { newPassword ->
-            signInViewModel.onSignInChanged(username, email, phone, newPassword)
+            signInViewModel.onSignInChanged(username, email, phone, newPassword, confirmPassword)
+        }
+        Spacer(modifier = Modifier.size(8.dp))
+        Password(confirmPassword) { newConfirmPassword ->
+            signInViewModel.onSignInChanged(username, email, phone, password, newConfirmPassword)
         }
 
         Spacer(modifier = Modifier.size(36.dp))

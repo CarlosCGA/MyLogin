@@ -26,6 +26,9 @@ class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCa
     private val _password = MutableLiveData<String>()
     val password: LiveData<String> = _password
 
+    private val _confirmPassword = MutableLiveData<String>()
+    val confirmPassword: LiveData<String> = _confirmPassword
+
     private val _isSignInEnabled = MutableLiveData<Boolean>()
     val isSignInEnabled: LiveData<Boolean> = _isSignInEnabled
 
@@ -36,25 +39,28 @@ class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCa
         username: String,
         email: String,
         phone: String,
-        password: String
+        password: String,
+        confirmPassword: String
     ) {
         _username.value = username
         _email.value = email
         _phone.value = phone
         _password.value = password
+        _confirmPassword.value = confirmPassword
 
-        enableSignIn(email, phone, password)
+        enableSignIn(email, phone, password, confirmPassword)
     }
 
     /**
      * Conditions of input signIn
      */
-    private fun enableSignIn(email: String, phone: String, password: String) {
+    private fun enableSignIn(email: String, phone: String, password: String, confirmPassword: String) {
         _isSignInEnabled.value =
             Patterns.EMAIL_ADDRESS.matcher(email).matches()
                     && Patterns.PHONE.matcher(phone).matches()
                     && password.isNotBlank()
                     && password.isNotEmpty()
+                    && password == confirmPassword
     }
 
     /**
@@ -63,9 +69,10 @@ class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCa
     fun onSignIn() {
         viewModelScope.launch {
 
-            val result = signInUseCase(username.value!!, email.value!!, phone.value!!, password.value!!)
+            val result =
+                signInUseCase(username.value!!, email.value!!, phone.value!!, password.value!!)
 
-            if(result)
+            if (result)
                 Log.i("CARLOS", "GO IN!")
 
         }
