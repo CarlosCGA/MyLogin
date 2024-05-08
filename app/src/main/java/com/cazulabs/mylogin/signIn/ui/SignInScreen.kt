@@ -92,11 +92,11 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             signInViewModel.onSignInChanged(username, email, newPhone, password, confirmPassword)
         }
         Spacer(modifier = Modifier.size(8.dp))
-        Password(password) { newPassword ->
+        Password(password = password) { newPassword ->
             signInViewModel.onSignInChanged(username, email, phone, newPassword, confirmPassword)
         }
         Spacer(modifier = Modifier.size(8.dp))
-        Password(confirmPassword) { newConfirmPassword ->
+        Password(label = "Confirm password", password = confirmPassword) { newConfirmPassword ->
             signInViewModel.onSignInChanged(username, email, phone, password, newConfirmPassword)
         }
 

@@ -98,7 +98,7 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
         }
         Spacer(modifier = Modifier.size(16.dp))
 
-        Password(password) { newPassword ->
+        Password(password = password) { newPassword ->
             logInViewModel.onLogInChanged(email, phone, newPassword)
         }
 
@@ -156,7 +156,7 @@ fun Phone(phone: String, onValueChange: (String) -> Unit) {
 }
 
 @Composable
-fun Password(password: String, onValueChange: (String) -> Unit) {
+fun Password(label: String = "Password", password: String, onValueChange: (String) -> Unit) {
     var showPassword by rememberSaveable {
         mutableStateOf(false)
     }
@@ -168,7 +168,7 @@ fun Password(password: String, onValueChange: (String) -> Unit) {
             onValueChange(newPassword)
         },
         singleLine = true,
-        label = { Text(text = "Password") },
+        label = { Text(text = label) },
         leadingIcon = {
             Icon(imageVector = Icons.Outlined.Lock, contentDescription = "lock")
         },
@@ -182,7 +182,7 @@ fun Password(password: String, onValueChange: (String) -> Unit) {
                     Icons.Outlined.VisibilityOff
                 else
                     Icons.Outlined.Visibility,
-                contentDescription = "password"
+                contentDescription = label
             )
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -205,7 +205,6 @@ fun ButtonLogIn(modifier: Modifier, isLogInEnabled: Boolean, logInViewModel: Log
         Text(text = "Log In")
     }
 }
-
 
 
 @Preview(showSystemUi = true)
