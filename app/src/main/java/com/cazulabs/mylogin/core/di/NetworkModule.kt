@@ -1,5 +1,6 @@
 package com.cazulabs.mylogin.core.di
 
+import com.cazulabs.mylogin.countriesInformation.data.network.CountriesInformationClient
 import com.cazulabs.mylogin.logIn.data.network.LogInClient
 import com.cazulabs.mylogin.signIn.data.network.SignInClient
 import dagger.Module
@@ -33,6 +34,12 @@ class NetworkModule {
     @Provides
     fun provideSignInClient(retrofit: Retrofit): SignInClient {
         return retrofit.create(SignInClient::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCountriesInformationClient(retrofit: Retrofit): CountriesInformationClient {
+        return retrofit.create(CountriesInformationClient::class.java)
     }
 
 }
