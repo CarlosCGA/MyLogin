@@ -63,7 +63,7 @@ class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCa
     fun onSignIn() {
         viewModelScope.launch {
 
-            val result = signInUseCase(email.value!!, phone.value!!, password.value!!)
+            val result = signInUseCase(username.value!!, email.value!!, phone.value!!, password.value!!)
 
             if(result)
                 Log.i("CARLOS", "GO IN!")
