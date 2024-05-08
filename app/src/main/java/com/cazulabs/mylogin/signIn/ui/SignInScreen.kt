@@ -40,6 +40,7 @@ fun SignInScreen(signInViewModel: SignInViewModel = hiltViewModel<SignInViewMode
 
 @Composable
 fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
+    val username by signInViewModel.email.observeAsState(initial = "")
     val email by signInViewModel.email.observeAsState(initial = "")
     val phone by signInViewModel.phone.observeAsState(initial = "")
     val password by signInViewModel.password.observeAsState(initial = "")
@@ -50,16 +51,19 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
         Spacer(modifier = Modifier.size(36.dp))
 
         Email(email) { newEmail ->
-            signInViewModel.onLogInChanged(newEmail, phone, password)
+            signInViewModel.onLogInChanged(username, newEmail, phone, password)
+        }
+        Spacer(modifier = Modifier.size(8.dp))
+        Email(email) { newEmail ->
+            signInViewModel.onLogInChanged(username, newEmail, phone, password)
         }
         Spacer(modifier = Modifier.size(8.dp))
         Phone(phone) { newPhone ->
-            signInViewModel.onLogInChanged(email, newPhone, password)
+            signInViewModel.onLogInChanged(username, email, newPhone, password)
         }
-        Spacer(modifier = Modifier.size(16.dp))
-
+        Spacer(modifier = Modifier.size(8.dp))
         Password(password) { newPassword ->
-            signInViewModel.onLogInChanged(email, phone, newPassword)
+            signInViewModel.onLogInChanged(username, email, phone, newPassword)
         }
 
         Spacer(modifier = Modifier.size(24.dp))
