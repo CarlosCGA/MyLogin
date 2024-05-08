@@ -14,6 +14,9 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCase) : ViewModel() {
 
+    private val _username = MutableLiveData<String>()
+    val username: LiveData<String> = _username
+
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
 
@@ -30,10 +33,12 @@ class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCa
      * Update viewModel variables when updated in input textFields
      */
     fun onLogInChanged(
+        username: String,
         email: String,
         phone: String,
         password: String
     ) {
+        _username.value = username
         _email.value = email
         _phone.value = phone
         _password.value = password
@@ -42,7 +47,7 @@ class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCa
     }
 
     /**
-     * Conditions of input logIn to enable logIn button
+     * Conditions of input signIn
      */
     private fun enableLogIn(email: String, phone: String, password: String) {
         _isLogInEnabled.value =
