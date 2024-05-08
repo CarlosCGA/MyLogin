@@ -75,9 +75,9 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
             logInViewModel.onLogInChanged(newEmail, phone, password)
         }
         Spacer(modifier = Modifier.size(8.dp))
-        Phone(phone) { newPhone ->
+        Phone(phone = phone, onValueChange = { newPhone ->
             logInViewModel.onLogInChanged(email, newPhone, password)
-        }
+        })
         Spacer(modifier = Modifier.size(16.dp))
 
         Password(password = password) { newPassword ->

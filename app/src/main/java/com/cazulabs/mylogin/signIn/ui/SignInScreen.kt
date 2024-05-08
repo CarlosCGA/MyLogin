@@ -68,6 +68,7 @@ fun Header(modifier: Modifier, navController: NavController) {
 fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
     val username by signInViewModel.username.observeAsState(initial = "")
     val email by signInViewModel.email.observeAsState(initial = "")
+    val phonePrefix by signInViewModel.phonePrefix.observeAsState(initial = "34")
     val phone by signInViewModel.phone.observeAsState(initial = "")
     val password by signInViewModel.password.observeAsState(initial = "")
     val confirmPassword by signInViewModel.confirmPassword.observeAsState(initial = "")
@@ -78,23 +79,62 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
         Spacer(modifier = Modifier.size(24.dp))
 
         Username(username) { newUsername ->
-            signInViewModel.onSignInChanged(newUsername, email, phone, password, confirmPassword)
+            signInViewModel.onSignInChanged(
+                newUsername,
+                email,
+                phonePrefix,
+                phone,
+                password,
+                confirmPassword
+            )
         }
         Spacer(modifier = Modifier.size(8.dp))
         Email(email) { newEmail ->
-            signInViewModel.onSignInChanged(username, newEmail, phone, password, confirmPassword)
+            signInViewModel.onSignInChanged(
+                username,
+                newEmail,
+                phonePrefix,
+                phone,
+                password,
+                confirmPassword
+            )
         }
         Spacer(modifier = Modifier.size(8.dp))
-        Phone(phone) { newPhone ->
-            signInViewModel.onSignInChanged(username, email, newPhone, password, confirmPassword)
-        }
+        Phone(
+            phonePrefix = phonePrefix,
+            onPhonePrefixChange = {},
+            phone = phone,
+            onValueChange = { newPhone ->
+                signInViewModel.onSignInChanged(
+                    username,
+                    email,
+                    phonePrefix,
+                    newPhone,
+                    password,
+                    confirmPassword
+                )
+            })
         Spacer(modifier = Modifier.size(8.dp))
         Password(password = password) { newPassword ->
-            signInViewModel.onSignInChanged(username, email, phone, newPassword, confirmPassword)
+            signInViewModel.onSignInChanged(
+                username,
+                email,
+                phonePrefix,
+                phone,
+                newPassword,
+                confirmPassword
+            )
         }
         Spacer(modifier = Modifier.size(8.dp))
         Password(label = "Confirm password", password = confirmPassword) { newConfirmPassword ->
-            signInViewModel.onSignInChanged(username, email, phone, password, newConfirmPassword)
+            signInViewModel.onSignInChanged(
+                username,
+                email,
+                phonePrefix,
+                phone,
+                password,
+                newConfirmPassword
+            )
         }
 
         Spacer(modifier = Modifier.size(36.dp))

@@ -20,6 +20,9 @@ class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCa
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
 
+    private val _phonePrefix = MutableLiveData<String>()
+    val phonePrefix: LiveData<String> = _phonePrefix
+
     private val _phone = MutableLiveData<String>()
     val phone: LiveData<String> = _phone
 
@@ -38,12 +41,14 @@ class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCa
     fun onSignInChanged(
         username: String,
         email: String,
+        phonePrefix: String,
         phone: String,
         password: String,
         confirmPassword: String
     ) {
         _username.value = username
         _email.value = email
+        _phonePrefix.value = phonePrefix
         _phone.value = phone
         _password.value = password
         _confirmPassword.value = confirmPassword
