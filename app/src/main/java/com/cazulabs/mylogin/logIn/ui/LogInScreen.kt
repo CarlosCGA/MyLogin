@@ -43,7 +43,7 @@ import com.cazulabs.mylogin.core.navigation.Routes
 
 @Composable
 fun LogInScreen(
-    navigationController: NavHostController,
+    navController: NavHostController,
     logInViewModel: LogInViewModel = hiltViewModel<LogInViewModel>()
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
@@ -58,7 +58,7 @@ fun LogInScreen(
             Spacer(modifier = Modifier.size(36.dp))
             Footer(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                navigationController
+                navController
             )
             Spacer(modifier = Modifier.size(16.dp))
         }
