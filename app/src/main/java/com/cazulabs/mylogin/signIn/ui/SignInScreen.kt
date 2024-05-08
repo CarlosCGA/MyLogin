@@ -44,7 +44,7 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
     val email by signInViewModel.email.observeAsState(initial = "")
     val phone by signInViewModel.phone.observeAsState(initial = "")
     val password by signInViewModel.password.observeAsState(initial = "")
-    val isSignInEnabled by signInViewModel.isLogInEnabled.observeAsState(initial = false)
+    val isSignInEnabled by signInViewModel.isSignInEnabled.observeAsState(initial = false)
 
     Column(modifier = modifier) {
         SignInTitle(modifier = Modifier.align(Alignment.CenterHorizontally))

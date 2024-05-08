@@ -26,8 +26,8 @@ class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCa
     private val _password = MutableLiveData<String>()
     val password: LiveData<String> = _password
 
-    private val _isLogInEnabled = MutableLiveData<Boolean>()
-    val isLogInEnabled: LiveData<Boolean> = _isLogInEnabled
+    private val _isSignInEnabled = MutableLiveData<Boolean>()
+    val isSignInEnabled: LiveData<Boolean> = _isSignInEnabled
 
     /**
      * Update viewModel variables when updated in input textFields
@@ -50,7 +50,7 @@ class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCa
      * Conditions of input signIn
      */
     private fun enableSignIn(email: String, phone: String, password: String) {
-        _isLogInEnabled.value =
+        _isSignInEnabled.value =
             Patterns.EMAIL_ADDRESS.matcher(email).matches()
                     && Patterns.PHONE.matcher(phone).matches()
                     && password.isNotBlank()
