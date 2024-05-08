@@ -32,7 +32,7 @@ class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCa
     /**
      * Update viewModel variables when updated in input textFields
      */
-    fun onLogInChanged(
+    fun onSignInChanged(
         username: String,
         email: String,
         phone: String,
@@ -43,13 +43,13 @@ class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCa
         _phone.value = phone
         _password.value = password
 
-        enableLogIn(email, phone, password)
+        enableSignIn(email, phone, password)
     }
 
     /**
      * Conditions of input signIn
      */
-    private fun enableLogIn(email: String, phone: String, password: String) {
+    private fun enableSignIn(email: String, phone: String, password: String) {
         _isLogInEnabled.value =
             Patterns.EMAIL_ADDRESS.matcher(email).matches()
                     && Patterns.PHONE.matcher(phone).matches()

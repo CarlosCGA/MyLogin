@@ -51,19 +51,19 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
         Spacer(modifier = Modifier.size(36.dp))
 
         Email(email) { newEmail ->
-            signInViewModel.onLogInChanged(username, newEmail, phone, password)
+            signInViewModel.onSignInChanged(username, newEmail, phone, password)
         }
         Spacer(modifier = Modifier.size(8.dp))
         Email(email) { newEmail ->
-            signInViewModel.onLogInChanged(username, newEmail, phone, password)
+            signInViewModel.onSignInChanged(username, newEmail, phone, password)
         }
         Spacer(modifier = Modifier.size(8.dp))
         Phone(phone) { newPhone ->
-            signInViewModel.onLogInChanged(username, email, newPhone, password)
+            signInViewModel.onSignInChanged(username, email, newPhone, password)
         }
         Spacer(modifier = Modifier.size(8.dp))
         Password(password) { newPassword ->
-            signInViewModel.onLogInChanged(username, email, phone, newPassword)
+            signInViewModel.onSignInChanged(username, email, phone, newPassword)
         }
 
         Spacer(modifier = Modifier.size(24.dp))
