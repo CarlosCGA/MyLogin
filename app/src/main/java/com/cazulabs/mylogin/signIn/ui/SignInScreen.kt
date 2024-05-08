@@ -7,12 +7,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.ArrowBackIosNew
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -65,7 +69,7 @@ fun Header(modifier: Modifier, navController: NavController) {
 
 @Composable
 fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
-    val username by signInViewModel.email.observeAsState(initial = "")
+    val username by signInViewModel.username.observeAsState(initial = "")
     val email by signInViewModel.email.observeAsState(initial = "")
     val phone by signInViewModel.phone.observeAsState(initial = "")
     val password by signInViewModel.password.observeAsState(initial = "")
@@ -73,10 +77,10 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
 
     Column(modifier = modifier) {
         SignInTitle(modifier = Modifier.align(Alignment.CenterHorizontally))
-        Spacer(modifier = Modifier.size(36.dp))
+        Spacer(modifier = Modifier.size(24.dp))
 
-        Email(email) { newEmail ->
-            signInViewModel.onSignInChanged(username, newEmail, phone, password)
+        Username(username) { newUsername ->
+            signInViewModel.onSignInChanged(newUsername, email, phone, password)
         }
         Spacer(modifier = Modifier.size(8.dp))
         Email(email) { newEmail ->
@@ -91,7 +95,7 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             signInViewModel.onSignInChanged(username, email, phone, newPassword)
         }
 
-        Spacer(modifier = Modifier.size(24.dp))
+        Spacer(modifier = Modifier.size(36.dp))
 
         ButtonSignIn(
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -99,6 +103,23 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             signInViewModel = signInViewModel
         )
     }
+}
+
+@Composable
+fun Username(username: String, onValueChange: (String) -> Unit) {
+    OutlinedTextField(
+        modifier = Modifier,
+        value = username,
+        onValueChange = { newUsername ->
+            onValueChange(newUsername)
+        },
+        singleLine = true,
+        label = { Text(text = "Username") },
+        leadingIcon = {
+            Icon(imageVector = Icons.Outlined.AccountCircle, contentDescription = "username")
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+    )
 }
 
 @Composable
