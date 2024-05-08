@@ -25,11 +25,11 @@ fun AppNavigation() {
         }
 
         composable(Routes.LogIn.route) {
-            LogInScreen(navController)
+            LogInScreen(navController = navController)
         }
 
         composable(Routes.SignIn.route) {
-            SignInScreen()
+            SignInScreen(navController = navController)
         }
     }
 }
