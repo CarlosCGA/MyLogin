@@ -20,7 +20,7 @@ fun SplashScreen(onFinish: () -> Unit) {
 
     LaunchedEffect(key1 = true) {
         //Simulate suspend function
-        delay(5000)
+        delay(2500)
         onFinish()
     }
 
