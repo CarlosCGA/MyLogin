@@ -6,9 +6,9 @@ import javax.inject.Inject
 
 class SignInService @Inject constructor(private val signInClient: SignInClient) {
 
-    suspend fun doSignIn(email: String, phone: String, password: String): Boolean {
+    suspend fun doSignIn(username: String, email: String, phone: String, password: String): Boolean {
         return withContext(Dispatchers.IO) {
-            val response = signInClient.doSignIn(/*email, phone, password*/)
+            val response = signInClient.doSignIn(/*username, email, phone, password*/)
             response.body()?.success ?: false //If null return false
         }
     }

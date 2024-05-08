@@ -5,8 +5,8 @@ import javax.inject.Inject
 
 class SignInUseCase @Inject constructor(private val repository: SignInRepository){
 
-    suspend operator fun invoke(email: String, phone: String, password: String): Boolean {
-        return repository.doSignIn(email, phone, password)
+    suspend operator fun invoke(username: String, email: String, phone: String, password: String): Boolean {
+        return repository.doSignIn(username, email, phone, password)
     }
 
 }
