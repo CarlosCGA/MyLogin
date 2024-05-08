@@ -25,11 +25,14 @@ import com.cazulabs.mylogin.core.navigation.Routes
 import com.cazulabs.mylogin.core.ui.components.textFields.Email
 import com.cazulabs.mylogin.core.ui.components.textFields.Password
 import com.cazulabs.mylogin.core.ui.components.textFields.Phone
+import com.cazulabs.mylogin.countriesInformation.ui.CountriesInformationViewModel
+import com.cazulabs.mylogin.countriesInformation.ui.CountryCodePicker
 
 @Composable
 fun LogInScreen(
     navController: NavHostController,
-    logInViewModel: LogInViewModel = hiltViewModel<LogInViewModel>()
+    logInViewModel: LogInViewModel = hiltViewModel<LogInViewModel>(),
+    countriesInformationViewModel: CountriesInformationViewModel = hiltViewModel<CountriesInformationViewModel>(),
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -38,7 +41,8 @@ fun LogInScreen(
                 modifier = Modifier
                     .weight(1F)
                     .align(Alignment.CenterHorizontally),
-                logInViewModel
+                logInViewModel,
+                countriesInformationViewModel
             )
             Spacer(modifier = Modifier.size(36.dp))
             Footer(
@@ -61,7 +65,7 @@ fun Footer(modifier: Modifier, navigationController: NavHostController) {
 }
 
 @Composable
-fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
+fun Body(modifier: Modifier, logInViewModel: LogInViewModel, countriesInformationViewModel: CountriesInformationViewModel) {
     val email by logInViewModel.email.observeAsState(initial = "")
     val phone by logInViewModel.phone.observeAsState(initial = "")
     val password by logInViewModel.password.observeAsState(initial = "")
@@ -69,6 +73,7 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
 
     Column(modifier = modifier) {
         LogInTitle(modifier = Modifier.align(Alignment.CenterHorizontally))
+        CountryCodePicker(countriesInformationViewModel)
         Spacer(modifier = Modifier.size(36.dp))
 
         Email(email) { newEmail ->
