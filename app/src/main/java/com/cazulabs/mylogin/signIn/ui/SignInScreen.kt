@@ -7,15 +7,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.ArrowBackIosNew
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,15 +21,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.cazulabs.mylogin.logIn.ui.Email
-import com.cazulabs.mylogin.logIn.ui.Password
-import com.cazulabs.mylogin.logIn.ui.Phone
+import com.cazulabs.mylogin.core.ui.components.textFields.Email
+import com.cazulabs.mylogin.core.ui.components.textFields.Password
+import com.cazulabs.mylogin.core.ui.components.textFields.Phone
+import com.cazulabs.mylogin.core.ui.components.textFields.Username
 
 @Composable
 fun SignInScreen(
@@ -108,23 +105,6 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             signInViewModel = signInViewModel
         )
     }
-}
-
-@Composable
-fun Username(username: String, onValueChange: (String) -> Unit) {
-    OutlinedTextField(
-        modifier = Modifier,
-        value = username,
-        onValueChange = { newUsername ->
-            onValueChange(newUsername)
-        },
-        singleLine = true,
-        label = { Text(text = "Username") },
-        leadingIcon = {
-            Icon(imageVector = Icons.Outlined.AccountCircle, contentDescription = "username")
-        },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-    )
 }
 
 @Composable

@@ -9,30 +9,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material.icons.outlined.Phone
-import androidx.compose.material.icons.outlined.Visibility
-import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -40,6 +25,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.cazulabs.mylogin.R
 import com.cazulabs.mylogin.core.navigation.Routes
+import com.cazulabs.mylogin.core.ui.components.textFields.Email
+import com.cazulabs.mylogin.core.ui.components.textFields.Password
+import com.cazulabs.mylogin.core.ui.components.textFields.Phone
 
 @Composable
 fun LogInScreen(
@@ -118,79 +106,6 @@ fun LogInTitle(modifier: Modifier) {
         modifier = modifier,
         text = "Log In",
         fontWeight = FontWeight.Bold
-    )
-}
-
-@Composable
-fun Email(email: String, onValueChange: (String) -> Unit) {
-    OutlinedTextField(
-        modifier = Modifier,
-        value = email,
-        onValueChange = { newEmail ->
-            onValueChange(newEmail)
-        },
-        singleLine = true,
-        label = { Text(text = "Email") },
-        leadingIcon = {
-            Icon(imageVector = Icons.Outlined.Email, contentDescription = "email")
-        },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
-    )
-}
-
-@Composable
-fun Phone(phone: String, onValueChange: (String) -> Unit) {
-    OutlinedTextField(
-        modifier = Modifier,
-        value = phone,
-        onValueChange = { newPhone ->
-            onValueChange(newPhone)
-        },
-        singleLine = true,
-        label = { Text(text = "Phone") },
-        leadingIcon = {
-            Icon(imageVector = Icons.Outlined.Phone, contentDescription = "phone")
-        },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
-    )
-}
-
-@Composable
-fun Password(label: String = "Password", password: String, onValueChange: (String) -> Unit) {
-    var showPassword by rememberSaveable {
-        mutableStateOf(false)
-    }
-
-    OutlinedTextField(
-        modifier = Modifier,
-        value = password,
-        onValueChange = { newPassword ->
-            onValueChange(newPassword)
-        },
-        singleLine = true,
-        label = { Text(text = label) },
-        leadingIcon = {
-            Icon(imageVector = Icons.Outlined.Lock, contentDescription = "lock")
-        },
-        trailingIcon = {
-            Icon(
-                modifier = Modifier.clickable {
-                    showPassword = !showPassword
-                },
-                imageVector =
-                if (showPassword)
-                    Icons.Outlined.VisibilityOff
-                else
-                    Icons.Outlined.Visibility,
-                contentDescription = label
-            )
-        },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        visualTransformation =
-        if (showPassword)
-            VisualTransformation.None
-        else
-            PasswordVisualTransformation()
     )
 }
 
