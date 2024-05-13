@@ -28,7 +28,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.cazulabs.mylogin.core.ui.components.textFields.Email
 import com.cazulabs.mylogin.core.ui.components.textFields.Password
-import com.cazulabs.mylogin.core.ui.components.textFields.Phone
+import com.cazulabs.mylogin.core.ui.components.textFields.PhoneWithPrefix
 import com.cazulabs.mylogin.core.ui.components.textFields.Username
 
 @Composable
@@ -46,7 +46,6 @@ fun SignInScreen(
                 signInViewModel
             )
         }
-
     }
 }
 
@@ -68,7 +67,8 @@ fun Header(modifier: Modifier, navController: NavController) {
 fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
     val username by signInViewModel.username.observeAsState(initial = "")
     val email by signInViewModel.email.observeAsState(initial = "")
-    val phonePrefix by signInViewModel.phonePrefix.observeAsState(initial = "34")
+    val countriesPhonePrefix by signInViewModel.countriesPhonePrefix.observeAsState(initial = emptyList())
+    val phonePrefix by signInViewModel.phonePrefix.observeAsState(initial = "+34")
     val phone by signInViewModel.phone.observeAsState(initial = "")
     val password by signInViewModel.password.observeAsState(initial = "")
     val confirmPassword by signInViewModel.confirmPassword.observeAsState(initial = "")
@@ -100,9 +100,19 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             )
         }
         Spacer(modifier = Modifier.size(8.dp))
-        Phone(
+        PhoneWithPrefix(
+            countriesPhonePrefix = countriesPhonePrefix,
             phonePrefix = phonePrefix,
-            onPhonePrefixChange = {},
+            onPhonePrefixChange = { newPhonePrefix ->
+                signInViewModel.onSignInChanged(
+                    username,
+                    email,
+                    newPhonePrefix,
+                    phone,
+                    password,
+                    confirmPassword
+                )
+            },
             phone = phone,
             onValueChange = { newPhone ->
                 signInViewModel.onSignInChanged(
@@ -113,7 +123,8 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
                     password,
                     confirmPassword
                 )
-            })
+            }
+        )
         Spacer(modifier = Modifier.size(8.dp))
         Password(password = password) { newPassword ->
             signInViewModel.onSignInChanged(

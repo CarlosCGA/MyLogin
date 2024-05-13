@@ -1,6 +1,9 @@
 package com.cazulabs.mylogin.core.ui.components.textFields
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Phone
@@ -16,23 +19,20 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import com.cazulabs.mylogin.countriesInformation.data.network.response.CountryInformationResponse
+import androidx.compose.ui.unit.dp
+import com.cazulabs.mylogin.countriesInformation.data.model.CountryPhonePrefixModel
 
 @Composable
 fun PhoneWithPrefix(
     phonePrefix: String = "",
     onPhonePrefixChange: (String) -> Unit = {},
-    onClickPhonePrefix: () -> Unit = {},
-    countries: List<CountryInformationResponse>,
+    countriesPhonePrefix: List<CountryPhonePrefixModel>,
     phone: String,
     onValueChange: (String) -> Unit
 ) {
-    var expandedPrefixSelector by rememberSaveable {
-        mutableStateOf(false)
-    }
-
     OutlinedTextField(
         modifier = Modifier,
         value = phone,
@@ -43,10 +43,8 @@ fun PhoneWithPrefix(
         prefix = {
             if (phonePrefix.isNotEmpty())
                 PhonePrefixDropDown(
-                    expanded = expandedPrefixSelector,
                     phonePrefix = phonePrefix,
-                    countries = countries,
-                    onClickPhonePrefix = onClickPhonePrefix
+                    countriesPhonePrefix = countriesPhonePrefix,
                 )
             //PhonePrefix(phonePrefix = phonePrefix, onClickPhonePrefix = onClickPhonePrefix)
         },
@@ -62,47 +60,63 @@ fun PhoneWithPrefix(
 fun PhonePrefix(phonePrefix: String, onClickPhonePrefix: () -> Unit) {
     Text(modifier = Modifier.clickable {
         onClickPhonePrefix()
-    }, text = "+$phonePrefix", color = Color.Gray)
+    }, text = phonePrefix, color = Color.Gray)
 }
 
 @Composable
 fun PhonePrefixDropDown(
-    expanded: Boolean,
-    countries: List<CountryInformationResponse>,
+    countriesPhonePrefix: List<CountryPhonePrefixModel>,
     phonePrefix: String,
-    onClickPhonePrefix: () -> Unit
 ) {
-    var itemSelected by rememberSaveable {
-        mutableStateOf("")
+    var isExpanded by rememberSaveable {
+        mutableStateOf(false)
     }
 
-    DropdownMenu(expanded = expanded, onDismissRequest = { /*TODO ON_DISMISS*/ }) {
-        countries.map { country ->
-            DropdownMenuItem(
-                text = { Text(text = country.name) },
-                onClick = {
-                    itemSelected = country.name
-                    //expanded = false
-                },
-                /*
-                colors = MenuItemColors(
-                    textColor = Color.Red,
-                    leadingIconColor = Color.Yellow,
-                    trailingIconColor = Color.Green,
-                    disabledLeadingIconColor = Color.DarkGray,
-                    disabledTextColor = Color.Black,
-                    disabledTrailingIconColor = Color.Blue
+    var itemSelected by rememberSaveable {
+        mutableStateOf(phonePrefix)
+    }
+
+    Text(modifier = Modifier.clickable { isExpanded = true }, text = itemSelected)
+
+    DropdownMenu(expanded = isExpanded, onDismissRequest = { isExpanded = false }) {
+        countriesPhonePrefix.map { country ->
+            if (country.dialCode.isNotEmpty()) {
+                DropdownMenuItem(
+                    text = {
+                        MenuItem(country = country)
+                    },
+                    onClick = {
+                        itemSelected = country.dialCode
+                        isExpanded = false
+                    }
                 )
-                */
-            )
+            }
         }
+    }
+}
+
+@Composable
+fun MenuItem(country: CountryPhonePrefixModel) {
+    Row {
+        Text(text = country.emoji)
+        Spacer(modifier = Modifier.size(4.dp))
+        Text(text = country.name)
+        Spacer(modifier = Modifier.size(8.dp))
+        Text(text = country.dialCode, fontWeight = FontWeight.Bold)
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PhoneWithPrefixPreview() {
-    PhoneWithPrefix(phonePrefix = "34", countries = emptyList(), phone = "") {
+    val countries = listOf(
+        CountryPhonePrefixModel("France", "FR", "+43"),
+        CountryPhonePrefixModel("Spain", "ES", "+34"),
+        CountryPhonePrefixModel("Italy", "IT", "+22"),
+        CountryPhonePrefixModel("Great Britain", "Gb", "+2"),
+        CountryPhonePrefixModel("Germany", "GR", "+48"),
+    )
+    PhoneWithPrefix(phonePrefix = "34", countriesPhonePrefix = countries, phone = "") {
 
     }
 }
