@@ -87,7 +87,7 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel, navController: NavH
         TextButton(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             onClick = { navController.navigate(Routes.ResetPassword.route) }) {
-            Text(text = "Do you forget your password?")
+            Text(text = "Did you forget your password?")
         }
 
         Spacer(modifier = Modifier.size(16.dp))
