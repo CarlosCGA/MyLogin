@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.cazulabs.mylogin.logIn.ui.LogInScreen
+import com.cazulabs.mylogin.resetPassword.ui.ResetPasswordScreen
 import com.cazulabs.mylogin.signIn.ui.SignInScreen
 import com.cazulabs.mylogin.splashScreen.SplashScreen
 
@@ -30,6 +31,10 @@ fun AppNavigation() {
 
         composable(Routes.SignIn.route) {
             SignInScreen(navController = navController)
+        }
+
+        composable(Routes.ResetPassword.route) {
+            ResetPasswordScreen(navController = navController)
         }
     }
 }

@@ -38,7 +38,8 @@ fun LogInScreen(
                 modifier = Modifier
                     .weight(1F)
                     .align(Alignment.CenterHorizontally),
-                logInViewModel
+                logInViewModel = logInViewModel,
+                navController = navController
             )
             Spacer(modifier = Modifier.size(36.dp))
             Footer(
@@ -51,17 +52,17 @@ fun LogInScreen(
 }
 
 @Composable
-fun Footer(modifier: Modifier, navigationController: NavHostController) {
+fun Footer(modifier: Modifier, navController: NavHostController) {
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(text = "Do not have account yet? ")
-        TextButton(onClick = { navigationController.navigate(Routes.SignIn.route) }) {
+        TextButton(onClick = { navController.navigate(Routes.SignIn.route) }) {
             Text(text = "Sign in", fontWeight = FontWeight.Bold)
         }
     }
 }
 
 @Composable
-fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
+fun Body(modifier: Modifier, logInViewModel: LogInViewModel, navController: NavHostController) {
     val email by logInViewModel.email.observeAsState(initial = "")
     val phone by logInViewModel.phone.observeAsState(initial = "")
     val password by logInViewModel.password.observeAsState(initial = "")
@@ -83,7 +84,9 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
             logInViewModel.onLogInChanged(email, phone, newPassword)
         }
 
-        TextButton(modifier = Modifier.align(Alignment.CenterHorizontally), onClick = { /*TODO*/ }) {
+        TextButton(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            onClick = { navController.navigate(Routes.ResetPassword.route) }) {
             Text(text = "Do you forget your password?")
         }
 
