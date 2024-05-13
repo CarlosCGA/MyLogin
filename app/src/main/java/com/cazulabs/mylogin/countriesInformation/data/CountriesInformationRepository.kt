@@ -10,12 +10,12 @@ class CountriesInformationRepository @Inject constructor(private val api: Countr
     suspend fun getCountriesInformation(): List<CountryInformationModel> {
         return api.getCountriesInformation().map { countryResponse ->
             CountryInformationModel(
-                name = countryResponse.name,
-                countryCode = countryResponse.countryCode,
-                emoji = countryResponse.emoji,
-                unicode = countryResponse.unicode,
-                dialCode = countryResponse.dialCode,
-                imageURL = countryResponse.imageURL
+                name = countryResponse.name ?: "",
+                countryCode = countryResponse.countryCode ?: "",
+                emoji = countryResponse.emoji ?: "",
+                unicode = countryResponse.unicode ?: "",
+                dialCode = countryResponse.dialCode ?: "",
+                imageURL = countryResponse.imageURL ?: ""
             )
         }
     }
@@ -23,9 +23,9 @@ class CountriesInformationRepository @Inject constructor(private val api: Countr
     suspend fun getCountriesPhoneCode(): List<CountryPhonePrefixModel> {
         return api.getCountriesInformation().map { countryResponse ->
             CountryPhonePrefixModel(
-                name = countryResponse.name,
-                emoji = countryResponse.emoji,
-                dialCode = countryResponse.dialCode
+                name = countryResponse.name ?: "",
+                emoji = countryResponse.emoji ?: "",
+                dialCode = countryResponse.dialCode ?: ""
             )
         }
     }
