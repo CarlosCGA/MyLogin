@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.LockReset
 import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.Icon
@@ -34,7 +35,10 @@ fun Password(label: String = "Password", password: String, onValueChange: (Strin
         singleLine = true,
         label = { Text(text = label) },
         leadingIcon = {
-            Icon(imageVector = Icons.Outlined.Lock, contentDescription = "lock")
+            if(label == "Password")
+                Icon(imageVector = Icons.Outlined.Lock, contentDescription = "lock")
+            else
+                Icon(imageVector = Icons.Outlined.LockReset, contentDescription = "lock again")
         },
         trailingIcon = {
             Icon(
