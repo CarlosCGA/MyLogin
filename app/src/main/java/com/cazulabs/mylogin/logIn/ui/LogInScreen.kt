@@ -72,7 +72,7 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel, navController: NavH
         LogInTitle(modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.size(36.dp))
 
-        Email(email) { newEmail ->
+        Email(email = email) { newEmail ->
             logInViewModel.onLogInChanged(newEmail, phone, password)
         }
         Spacer(modifier = Modifier.size(8.dp))
