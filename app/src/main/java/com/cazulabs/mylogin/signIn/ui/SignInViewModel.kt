@@ -6,19 +6,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cazulabs.mylogin.countriesInformation.data.model.CountryPhonePrefixModel
+import com.cazulabs.mylogin.countriesInformation.domain.GetCountriesPhonePrefixUseCase
 import com.cazulabs.mylogin.signIn.domain.SignInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCase) : ViewModel() {
+class SignInViewModel @Inject constructor(
+    private val signInUseCase: SignInUseCase,
+    private val getCountriesPhonePrefixUseCase: GetCountriesPhonePrefixUseCase
+) : ViewModel() {
 
     private val _username = MutableLiveData<String>()
     val username: LiveData<String> = _username
 
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
+
+    private val _countriesPhonePrefix = MutableLiveData<List<CountryPhonePrefixModel>>()
+    val countriesPhonePrefix: LiveData<List<CountryPhonePrefixModel>> = _countriesPhonePrefix
 
     private val _phonePrefix = MutableLiveData<String>()
     val phonePrefix: LiveData<String> = _phonePrefix
@@ -34,6 +42,12 @@ class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCa
 
     private val _isSignInEnabled = MutableLiveData<Boolean>()
     val isSignInEnabled: LiveData<Boolean> = _isSignInEnabled
+
+    init {
+        viewModelScope.launch {
+            _countriesPhonePrefix.value = getCountriesPhonePrefixUseCase()
+        }
+    }
 
     /**
      * Update viewModel variables when updated in input textFields
@@ -59,7 +73,12 @@ class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCa
     /**
      * Conditions of input signIn
      */
-    private fun enableSignIn(email: String, phone: String, password: String, confirmPassword: String) {
+    private fun enableSignIn(
+        email: String,
+        phone: String,
+        password: String,
+        confirmPassword: String
+    ) {
         _isSignInEnabled.value =
             Patterns.EMAIL_ADDRESS.matcher(email).matches()
                     && Patterns.PHONE.matcher(phone).matches()
