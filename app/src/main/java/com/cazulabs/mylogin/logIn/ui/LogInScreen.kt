@@ -79,12 +79,15 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel) {
             logInViewModel.onLogInChanged(email, newPhone, password)
         })
         Spacer(modifier = Modifier.size(16.dp))
-
         Password(password = password) { newPassword ->
             logInViewModel.onLogInChanged(email, phone, newPassword)
         }
 
-        Spacer(modifier = Modifier.size(24.dp))
+        TextButton(modifier = Modifier.align(Alignment.CenterHorizontally), onClick = { /*TODO*/ }) {
+            Text(text = "Do you forget your password?")
+        }
+
+        Spacer(modifier = Modifier.size(16.dp))
 
         ButtonLogIn(
             modifier = Modifier.align(Alignment.CenterHorizontally),
