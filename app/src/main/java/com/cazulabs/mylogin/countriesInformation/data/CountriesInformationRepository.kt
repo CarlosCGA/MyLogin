@@ -1,6 +1,7 @@
 package com.cazulabs.mylogin.countriesInformation.data
 
 import com.cazulabs.mylogin.countriesInformation.data.model.CountryInformationModel
+import com.cazulabs.mylogin.countriesInformation.data.model.CountryPhonePrefixModel
 import com.cazulabs.mylogin.countriesInformation.data.network.CountriesInformationService
 import javax.inject.Inject
 
@@ -15,6 +16,16 @@ class CountriesInformationRepository @Inject constructor(private val api: Countr
                 unicode = countryResponse.unicode,
                 dialCode = countryResponse.dialCode,
                 imageURL = countryResponse.imageURL
+            )
+        }
+    }
+
+    suspend fun getCountriesPhoneCode(): List<CountryPhonePrefixModel> {
+        return api.getCountriesInformation().map { countryResponse ->
+            CountryPhonePrefixModel(
+                name = countryResponse.name,
+                emoji = countryResponse.emoji,
+                dialCode = countryResponse.dialCode
             )
         }
     }
