@@ -12,11 +12,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -34,8 +32,12 @@ fun ResetPasswordScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Header(modifier = Modifier.align(Alignment.Start), navController = navController)
-            Spacer(modifier = Modifier.weight(0.33F))
+            Header(
+                modifier = Modifier
+                    .weight(0.3F)
+                    .align(Alignment.Start),
+                navController = navController
+            )
             Body(
                 modifier = Modifier
                     .weight(1F)
@@ -64,6 +66,9 @@ fun Body(
     val isResetPasswordEnabled by resetPasswordViewModel.isResetPasswordEnabled.observeAsState(false)
 
     Column(modifier = modifier) {
+        ResetPasswordTitle(modifier = Modifier.align(Alignment.CenterHorizontally))
+        Spacer(modifier = Modifier.size(24.dp))
+
         Email(
             email = email
         ) { newEmail ->
@@ -110,6 +115,15 @@ fun ButtonReset(modifier: Modifier, isResetPasswordEnabled: Boolean) {
     ) {
         Text(text = "Reset")
     }
+}
+
+@Composable
+fun ResetPasswordTitle(modifier: Modifier) {
+    Text(
+        modifier = modifier,
+        text = "Reset password",
+        fontWeight = FontWeight.Bold
+    )
 }
 
 @Preview(showSystemUi = true)
