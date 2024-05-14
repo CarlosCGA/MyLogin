@@ -166,10 +166,3 @@ fun SignInTitle(modifier: Modifier) {
         fontWeight = FontWeight.Bold
     )
 }
-
-
-@Preview(showSystemUi = true)
-@Composable
-fun SignInScreenPreview() {
-    SignInScreen(rememberNavController())
-}
