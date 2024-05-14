@@ -120,10 +120,3 @@ fun ButtonLogIn(modifier: Modifier, isLogInEnabled: Boolean, logInViewModel: Log
         Text(text = "Log In")
     }
 }
-
-
-@Preview(showSystemUi = true)
-@Composable
-fun PreviewLogInScreen() {
-    LogInScreen(rememberNavController(), hiltViewModel<LogInViewModel>())
-}
