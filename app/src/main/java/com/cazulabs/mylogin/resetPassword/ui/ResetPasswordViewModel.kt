@@ -44,7 +44,6 @@ class ResetPasswordViewModel @Inject constructor(private val resetPasswordUseCas
     fun onDoResetPassword() {
         viewModelScope.launch {
             resetPasswordUseCase()
-
         }
     }
 }

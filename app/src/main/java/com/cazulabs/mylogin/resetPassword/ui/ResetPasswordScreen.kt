@@ -99,18 +99,19 @@ fun Body(
 
         ButtonReset(
             modifier = Modifier.align(Alignment.CenterHorizontally),
-            isResetPasswordEnabled = isResetPasswordEnabled
+            isResetPasswordEnabled = isResetPasswordEnabled,
+            resetPasswordViewModel = resetPasswordViewModel
         )
     }
 
 }
 
 @Composable
-fun ButtonReset(modifier: Modifier, isResetPasswordEnabled: Boolean) {
+fun ButtonReset(modifier: Modifier, isResetPasswordEnabled: Boolean, resetPasswordViewModel: ResetPasswordViewModel) {
     Button(
         modifier = modifier,
         shape = RoundedCornerShape(6.dp),
-        onClick = { /*TODO*/ },
+        onClick = { resetPasswordViewModel.onDoResetPassword() },
         enabled = isResetPasswordEnabled
     ) {
         Text(text = "Reset")
