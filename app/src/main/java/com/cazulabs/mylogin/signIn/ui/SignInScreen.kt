@@ -33,7 +33,7 @@ fun SignInScreen(
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Header(modifier = Modifier.weight(0.25F), navController = navController)
+            Header(modifier = Modifier.weight(0.2F), navController = navController)
             Body(
                 modifier = Modifier
                     .weight(1F)
