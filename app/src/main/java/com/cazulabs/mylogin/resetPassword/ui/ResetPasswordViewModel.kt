@@ -5,12 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cazulabs.mylogin.resetPassword.domain.ResetPasswordUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ResetPasswordViewModel @Inject constructor() : ViewModel() {
+class ResetPasswordViewModel @Inject constructor(private val resetPasswordUseCase: ResetPasswordUseCase) :
+    ViewModel() {
 
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
@@ -41,6 +43,7 @@ class ResetPasswordViewModel @Inject constructor() : ViewModel() {
 
     fun onDoResetPassword() {
         viewModelScope.launch {
+            resetPasswordUseCase()
 
         }
     }
