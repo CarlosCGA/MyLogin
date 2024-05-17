@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -34,6 +35,7 @@ fun LogInScreen(
             Spacer(modifier = Modifier.weight(0.33F))
             Body(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .weight(1F)
                     .align(Alignment.CenterHorizontally),
                 logInViewModel = logInViewModel,
@@ -66,32 +68,46 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel, navController: NavH
     val password by logInViewModel.password.observeAsState(initial = "")
     val isLogInEnabled by logInViewModel.isLogInEnabled.observeAsState(initial = false)
 
-    Column(modifier = modifier) {
+    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         LogInTitle(modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.size(36.dp))
 
-        Email(email = email) { newEmail ->
+        Email(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
+            email = email
+        ) { newEmail ->
             logInViewModel.onLogInChanged(newEmail, phone, password)
         }
         Spacer(modifier = Modifier.size(8.dp))
-        Phone(phone = phone, onValueChange = { newPhone ->
-            logInViewModel.onLogInChanged(email, newPhone, password)
-        })
+        Phone(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
+            phone = phone,
+            onValueChange = { newPhone ->
+                logInViewModel.onLogInChanged(email, newPhone, password)
+            })
         Spacer(modifier = Modifier.size(16.dp))
-        Password(password = password) { newPassword ->
+        Password(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
+            password = password
+        ) { newPassword ->
             logInViewModel.onLogInChanged(email, phone, newPassword)
         }
 
         TextButton(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
             onClick = { navController.navigate(Routes.ResetPassword.route) }) {
             Text(text = "Did you forget your password?")
         }
 
-        Spacer(modifier = Modifier.size(16.dp))
+        Spacer(modifier = Modifier.size(12.dp))
 
         ButtonLogIn(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp),
             isLogInEnabled = isLogInEnabled,
             logInViewModel = logInViewModel
         )
