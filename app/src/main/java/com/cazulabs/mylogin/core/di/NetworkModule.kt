@@ -1,5 +1,6 @@
 package com.cazulabs.mylogin.core.di
 
+import com.cazulabs.mylogin.checkUser.data.network.CheckUserClient
 import com.cazulabs.mylogin.countriesInformation.data.network.CountriesInformationClient
 import com.cazulabs.mylogin.logIn.data.network.LogInClient
 import com.cazulabs.mylogin.resetPassword.data.network.ResetPasswordClient
@@ -47,6 +48,12 @@ class NetworkModule {
     @Provides
     fun provideResetPasswordClient(retrofit: Retrofit): ResetPasswordClient {
         return retrofit.create(ResetPasswordClient::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCheckUserClient(retrofit: Retrofit): CheckUserClient {
+        return retrofit.create(CheckUserClient::class.java)
     }
 
 }
