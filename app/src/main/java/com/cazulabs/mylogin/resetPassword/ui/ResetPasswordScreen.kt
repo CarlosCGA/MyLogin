@@ -133,7 +133,7 @@ fun Body(
 
         Spacer(modifier = Modifier.size(24.dp))
 
-        ButtonReset(
+        ButtonResetPassword(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             isResetPasswordEnabled = isResetPasswordEnabled,
             resetPasswordViewModel = resetPasswordViewModel
@@ -185,7 +185,7 @@ fun ResetPasswordModeSelector(
 }
 
 @Composable
-fun ButtonReset(
+fun ButtonResetPassword(
     modifier: Modifier,
     isResetPasswordEnabled: Boolean,
     resetPasswordViewModel: ResetPasswordViewModel
