@@ -15,11 +15,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.cazulabs.mylogin.core.ui.components.BackScreenButton
 import com.cazulabs.mylogin.core.ui.components.textFields.Email
 import com.cazulabs.mylogin.core.ui.components.textFields.Password
@@ -66,7 +64,7 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
         SignInTitle(modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.size(24.dp))
 
-        Username(username) { newUsername ->
+        Username(username = username) { newUsername ->
             signInViewModel.onSignInChanged(
                 newUsername,
                 email,
@@ -77,7 +75,7 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             )
         }
         Spacer(modifier = Modifier.size(8.dp))
-        Email(email) { newEmail ->
+        Email(email = email) { newEmail ->
             signInViewModel.onSignInChanged(
                 username,
                 newEmail,
