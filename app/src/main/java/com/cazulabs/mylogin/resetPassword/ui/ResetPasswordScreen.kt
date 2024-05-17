@@ -1,5 +1,6 @@
 package com.cazulabs.mylogin.resetPassword.ui
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import com.cazulabs.mylogin.core.ui.components.BackScreenButton
 import com.cazulabs.mylogin.core.ui.components.textFields.Email
 import com.cazulabs.mylogin.core.ui.components.textFields.Password
+import com.cazulabs.mylogin.core.ui.components.textFields.Phone
 
 @Composable
 fun ResetPasswordScreen(
@@ -64,6 +66,7 @@ fun Body(
     resetPasswordViewModel: ResetPasswordViewModel
 ) {
     val email by resetPasswordViewModel.email.observeAsState(initial = "")
+    val phone by resetPasswordViewModel.phone.observeAsState(initial = "")
     val password by resetPasswordViewModel.password.observeAsState(initial = "")
     val confirmPassword by resetPasswordViewModel.confirmPassword.observeAsState(initial = "")
     val isResetPasswordEnabled by resetPasswordViewModel.isResetPasswordEnabled.observeAsState(false)
@@ -76,26 +79,42 @@ fun Body(
         ResetPasswordModeSelector(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             email = email,
+            phone = phone,
             password = password,
             confirmPassword = confirmPassword,
             isResetPasswordEmailMode = isResetPasswordEmailMode,
             resetPasswordViewModel = resetPasswordViewModel
         )
 
-        Email(
-            email = email
-        ) { newEmail ->
-            resetPasswordViewModel.onResetPasswordChange(
-                email = newEmail,
-                password = password,
-                confirmPassword = confirmPassword,
-                isResetPasswordEmailMode = isResetPasswordEmailMode
-            )
+        AnimatedVisibility(visible = isResetPasswordEmailMode) {
+            Email(
+                email = email
+            ) { newEmail ->
+                resetPasswordViewModel.onResetPasswordChange(
+                    email = newEmail,
+                    phone = phone,
+                    password = password,
+                    confirmPassword = confirmPassword,
+                    isResetPasswordEmailMode = isResetPasswordEmailMode
+                )
+            }
+        }
+        AnimatedVisibility(visible = !isResetPasswordEmailMode) {
+            Phone(phone = phone) {newPhone ->
+                resetPasswordViewModel.onResetPasswordChange(
+                    email = email,
+                    phone = newPhone,
+                    password = password,
+                    confirmPassword = confirmPassword,
+                    isResetPasswordEmailMode = isResetPasswordEmailMode
+                )
+            }
         }
         Spacer(modifier = Modifier.size(8.dp))
         Password(password = password) { newPassword ->
             resetPasswordViewModel.onResetPasswordChange(
                 email = email,
+                phone = phone,
                 password = newPassword,
                 confirmPassword = confirmPassword,
                 isResetPasswordEmailMode = isResetPasswordEmailMode
@@ -105,6 +124,7 @@ fun Body(
         Password(label = "Confirm password", password = confirmPassword) { newConfirmPassword ->
             resetPasswordViewModel.onResetPasswordChange(
                 email = email,
+                phone = phone,
                 password = password,
                 confirmPassword = newConfirmPassword,
                 isResetPasswordEmailMode = isResetPasswordEmailMode
@@ -127,6 +147,7 @@ fun Body(
 fun ResetPasswordModeSelector(
     modifier: Modifier,
     email: String,
+    phone: String,
     password: String,
     confirmPassword: String,
     isResetPasswordEmailMode: Boolean,
@@ -138,6 +159,7 @@ fun ResetPasswordModeSelector(
             onClick = {
                 resetPasswordViewModel.onResetPasswordChange(
                     email = email,
+                    phone = phone,
                     password = password,
                     confirmPassword = confirmPassword,
                     isResetPasswordEmailMode = true
@@ -151,6 +173,7 @@ fun ResetPasswordModeSelector(
             onClick = {
                 resetPasswordViewModel.onResetPasswordChange(
                     email = email,
+                    phone = phone,
                     password = password,
                     confirmPassword = confirmPassword,
                     isResetPasswordEmailMode = false

@@ -17,6 +17,9 @@ class ResetPasswordViewModel @Inject constructor(private val resetPasswordUseCas
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
 
+    private val _phone = MutableLiveData<String>()
+    val phone: LiveData<String> = _phone
+
     private val _password = MutableLiveData<String>()
     val password: LiveData<String> = _password
 
@@ -31,21 +34,41 @@ class ResetPasswordViewModel @Inject constructor(private val resetPasswordUseCas
 
     fun onResetPasswordChange(
         email: String,
+        phone: String,
         password: String,
         confirmPassword: String,
         isResetPasswordEmailMode: Boolean
     ) {
         _email.value = email
+        _phone.value = phone
         _password.value = password
         _confirmPassword.value = confirmPassword
         _isResetPasswordEmailMode.value = isResetPasswordEmailMode
 
-        enableResetPassword(email, password, confirmPassword)
+        if (isResetPasswordEmailMode)
+            enableResetPasswordEmail(email, password, confirmPassword)
+        else
+            enableResetPasswordPhone(phone, password, confirmPassword)
     }
 
-    private fun enableResetPassword(email: String, password: String, confirmPassword: String) {
+    private fun enableResetPasswordEmail(
+        email: String,
+        password: String,
+        confirmPassword: String
+    ) {
         _isResetPasswordEnabled.value =
             Patterns.EMAIL_ADDRESS.matcher(email).matches()
+                    && password.isNotBlank()
+                    && password == confirmPassword
+    }
+
+    private fun enableResetPasswordPhone(
+        phone: String,
+        password: String,
+        confirmPassword: String
+    ) {
+        _isResetPasswordEnabled.value =
+            Patterns.PHONE.matcher(phone).matches()
                     && password.isNotBlank()
                     && password == confirmPassword
     }
