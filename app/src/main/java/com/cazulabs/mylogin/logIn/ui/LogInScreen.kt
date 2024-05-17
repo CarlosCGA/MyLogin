@@ -73,6 +73,8 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel, navController: NavH
         LogInTitle(modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.size(36.dp))
 
+        //TODO ADD EMAIL-PHONE LOGIN ONE WAY
+
         Email(
             modifier = Modifier
                 .fillMaxWidth()
