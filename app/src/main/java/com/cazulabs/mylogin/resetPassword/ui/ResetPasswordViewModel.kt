@@ -1,6 +1,5 @@
 package com.cazulabs.mylogin.resetPassword.ui
 
-import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
