@@ -2,12 +2,15 @@ package com.cazulabs.mylogin.resetPassword.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -64,10 +67,20 @@ fun Body(
     val password by resetPasswordViewModel.password.observeAsState(initial = "")
     val confirmPassword by resetPasswordViewModel.confirmPassword.observeAsState(initial = "")
     val isResetPasswordEnabled by resetPasswordViewModel.isResetPasswordEnabled.observeAsState(false)
+    val isResetPasswordEmailMode by resetPasswordViewModel.isResetPasswordEmailMode.observeAsState(true)
 
     Column(modifier = modifier) {
         ResetPasswordTitle(modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.size(24.dp))
+
+        ResetPasswordModeSelector(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            email = email,
+            password = password,
+            confirmPassword = confirmPassword,
+            isResetPasswordEmailMode = isResetPasswordEmailMode,
+            resetPasswordViewModel = resetPasswordViewModel
+        )
 
         Email(
             email = email
@@ -75,7 +88,8 @@ fun Body(
             resetPasswordViewModel.onResetPasswordChange(
                 email = newEmail,
                 password = password,
-                confirmPassword = confirmPassword
+                confirmPassword = confirmPassword,
+                isResetPasswordEmailMode = isResetPasswordEmailMode
             )
         }
         Spacer(modifier = Modifier.size(8.dp))
@@ -83,7 +97,8 @@ fun Body(
             resetPasswordViewModel.onResetPasswordChange(
                 email = email,
                 password = newPassword,
-                confirmPassword = confirmPassword
+                confirmPassword = confirmPassword,
+                isResetPasswordEmailMode = isResetPasswordEmailMode
             )
         }
         Spacer(modifier = Modifier.size(8.dp))
@@ -91,7 +106,8 @@ fun Body(
             resetPasswordViewModel.onResetPasswordChange(
                 email = email,
                 password = password,
-                confirmPassword = newConfirmPassword
+                confirmPassword = newConfirmPassword,
+                isResetPasswordEmailMode = isResetPasswordEmailMode
             )
         }
 
@@ -106,8 +122,51 @@ fun Body(
 
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ButtonReset(modifier: Modifier, isResetPasswordEnabled: Boolean, resetPasswordViewModel: ResetPasswordViewModel) {
+fun ResetPasswordModeSelector(
+    modifier: Modifier,
+    email: String,
+    password: String,
+    confirmPassword: String,
+    isResetPasswordEmailMode: Boolean,
+    resetPasswordViewModel: ResetPasswordViewModel
+) {
+    Row(modifier = modifier) {
+        FilterChip(
+            selected = isResetPasswordEmailMode,
+            onClick = {
+                resetPasswordViewModel.onResetPasswordChange(
+                    email = email,
+                    password = password,
+                    confirmPassword = confirmPassword,
+                    isResetPasswordEmailMode = true
+                )
+            },
+            label = { Text(text = "Email") }
+        )
+        Spacer(modifier = Modifier.size(8.dp))
+        FilterChip(
+            selected = !isResetPasswordEmailMode,
+            onClick = {
+                resetPasswordViewModel.onResetPasswordChange(
+                    email = email,
+                    password = password,
+                    confirmPassword = confirmPassword,
+                    isResetPasswordEmailMode = false
+                )
+            },
+            label = { Text(text = "Phone") }
+        )
+    }
+}
+
+@Composable
+fun ButtonReset(
+    modifier: Modifier,
+    isResetPasswordEnabled: Boolean,
+    resetPasswordViewModel: ResetPasswordViewModel
+) {
     Button(
         modifier = modifier,
         shape = RoundedCornerShape(6.dp),
