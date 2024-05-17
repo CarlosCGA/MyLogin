@@ -5,8 +5,8 @@ import javax.inject.Inject
 
 class ResetPasswordRepository @Inject constructor(private val api: ResetPasswordService) {
 
-    suspend fun onResetPassword(): Boolean {
-        return api.onResetPassword()
+    suspend fun onResetPassword(email: String, password: String): Boolean {
+        return api.onResetPassword(email, password)
     }
 
 }

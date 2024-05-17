@@ -26,7 +26,12 @@ class ResetPasswordViewModel @Inject constructor(private val resetPasswordUseCas
     private val _isResetPasswordEnabled = MutableLiveData<Boolean>()
     val isResetPasswordEnabled: LiveData<Boolean> = _isResetPasswordEnabled
 
-    fun onResetPasswordChange(email: String, password: String, confirmPassword: String) {
+
+    fun onResetPasswordChange(
+        email: String,
+        password: String,
+        confirmPassword: String,
+    ) {
         _email.value = email
         _password.value = password
         _confirmPassword.value = confirmPassword
@@ -43,7 +48,7 @@ class ResetPasswordViewModel @Inject constructor(private val resetPasswordUseCas
 
     fun onDoResetPassword() {
         viewModelScope.launch {
-            resetPasswordUseCase()
+            resetPasswordUseCase(_email.value!!, _password.value!!)
         }
     }
 }

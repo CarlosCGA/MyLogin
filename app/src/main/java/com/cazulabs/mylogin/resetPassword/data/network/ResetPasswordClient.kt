@@ -7,6 +7,6 @@ import retrofit2.http.GET
 interface ResetPasswordClient {
 
     @GET("v3/2a203145-d253-42d2-92ab-190630e682ea")
-    suspend fun onResetPassword(): Response<ResetPasswordResponse>
+    suspend fun onResetPassword(/*email: String, password: String*/): Response<ResetPasswordResponse>
 
 }

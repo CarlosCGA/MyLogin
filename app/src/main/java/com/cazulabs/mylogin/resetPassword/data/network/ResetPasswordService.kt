@@ -6,9 +6,9 @@ import javax.inject.Inject
 
 class ResetPasswordService @Inject constructor(private val resetPasswordClient: ResetPasswordClient) {
 
-    suspend fun onResetPassword() : Boolean {
+    suspend fun onResetPassword(email: String, password: String): Boolean {
         return withContext(Dispatchers.IO) {
-            val response = resetPasswordClient.onResetPassword()
+            val response = resetPasswordClient.onResetPassword(/*email, password*/)
             response.body()?.success ?: false
         }
     }
