@@ -55,13 +55,17 @@ class LogInViewModel @Inject constructor(private val logInUseCase: LogInUseCase)
     /**
      * Do logIn method
      */
-    fun onLogIn() {
+    fun onLogIn(): Boolean {
         viewModelScope.launch {
             val result = logInUseCase(email.value!!, password.value!!)
 
-            if(result)
+            if(result) {
                 Log.i("CARLOS", "GO IN!")
+            }
         }
+
+        //TODO WAIT AND MANAGE RESULT
+        return true
     }
 
 }

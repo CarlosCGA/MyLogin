@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.cazulabs.mylogin.core.navigation.Routes
 import com.cazulabs.mylogin.core.ui.components.textFields.Email
@@ -107,9 +108,12 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel, navController: NavH
         Spacer(modifier = Modifier.size(12.dp))
 
         ButtonLogIn(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
             isLogInEnabled = isLogInEnabled,
-            logInViewModel = logInViewModel
+            logInViewModel = logInViewModel,
+            navController = navController
         )
     }
 }
@@ -124,11 +128,20 @@ fun LogInTitle(modifier: Modifier) {
 }
 
 @Composable
-fun ButtonLogIn(modifier: Modifier, isLogInEnabled: Boolean, logInViewModel: LogInViewModel) {
+fun ButtonLogIn(
+    modifier: Modifier,
+    isLogInEnabled: Boolean,
+    logInViewModel: LogInViewModel,
+    navController: NavController
+) {
     Button(
         modifier = modifier,
         shape = RoundedCornerShape(6.dp),
-        onClick = { logInViewModel.onLogIn() },
+        onClick = {
+            val result = logInViewModel.onLogIn()
+            if (result)
+                navController.navigate(Routes.Home.route)
+        },
         enabled = isLogInEnabled
     ) {
         Text(text = "Log In")
