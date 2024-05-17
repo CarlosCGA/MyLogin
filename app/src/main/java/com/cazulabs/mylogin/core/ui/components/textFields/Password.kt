@@ -21,13 +21,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 
 @Composable
-fun Password(label: String = "Password", password: String, onValueChange: (String) -> Unit) {
+fun Password(modifier: Modifier = Modifier, label: String = "Password", password: String, onValueChange: (String) -> Unit) {
     var showPassword by rememberSaveable {
         mutableStateOf(false)
     }
 
     OutlinedTextField(
-        modifier = Modifier,
+        modifier = modifier,
         value = password,
         onValueChange = { newPassword ->
             onValueChange(newPassword)

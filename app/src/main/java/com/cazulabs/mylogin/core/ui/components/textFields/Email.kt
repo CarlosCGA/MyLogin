@@ -11,9 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 
 @Composable
-fun Email(email: String, onValueChange: (String) -> Unit) {
+fun Email(modifier: Modifier = Modifier, email: String, onValueChange: (String) -> Unit) {
     OutlinedTextField(
-        modifier = Modifier,
+        modifier = modifier,
         value = email,
         onValueChange = { newEmail ->
             onValueChange(newEmail)

@@ -27,6 +27,7 @@ import com.cazulabs.mylogin.countriesInformation.data.model.CountryPhonePrefixMo
 
 @Composable
 fun PhoneWithPrefix(
+    modifier: Modifier = Modifier,
     phonePrefix: String = "",
     onPhonePrefixChange: (String) -> Unit = {},
     countriesPhonePrefix: List<CountryPhonePrefixModel>,
@@ -34,7 +35,7 @@ fun PhoneWithPrefix(
     onValueChange: (String) -> Unit
 ) {
     OutlinedTextField(
-        modifier = Modifier,
+        modifier = modifier,
         value = phone,
         onValueChange = { newPhone ->
             onValueChange(newPhone)

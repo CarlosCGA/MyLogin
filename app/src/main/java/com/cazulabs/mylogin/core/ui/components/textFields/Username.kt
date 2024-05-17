@@ -11,9 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 
 @Composable
-fun Username(username: String, onValueChange: (String) -> Unit) {
+fun Username(modifier: Modifier = Modifier, username: String, onValueChange: (String) -> Unit) {
     OutlinedTextField(
-        modifier = Modifier,
+        modifier = modifier,
         value = username,
         onValueChange = { newUsername ->
             onValueChange(newUsername)
