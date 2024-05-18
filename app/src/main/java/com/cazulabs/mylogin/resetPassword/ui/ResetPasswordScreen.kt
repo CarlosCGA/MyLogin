@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -70,7 +71,9 @@ fun Body(
     val password by resetPasswordViewModel.password.observeAsState(initial = "")
     val confirmPassword by resetPasswordViewModel.confirmPassword.observeAsState(initial = "")
     val isResetPasswordEnabled by resetPasswordViewModel.isResetPasswordEnabled.observeAsState(false)
-    val isResetPasswordEmailMode by resetPasswordViewModel.isResetPasswordEmailMode.observeAsState(true)
+    val isResetPasswordEmailMode by resetPasswordViewModel.isResetPasswordEmailMode.observeAsState(
+        true
+    )
 
     Column(modifier = modifier) {
         ResetPasswordTitle(modifier = Modifier.align(Alignment.CenterHorizontally))
@@ -88,6 +91,9 @@ fun Body(
 
         AnimatedVisibility(visible = isResetPasswordEmailMode) {
             Email(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 32.dp),
                 email = email
             ) { newEmail ->
                 resetPasswordViewModel.onResetPasswordChange(
@@ -100,7 +106,11 @@ fun Body(
             }
         }
         AnimatedVisibility(visible = !isResetPasswordEmailMode) {
-            Phone(phone = phone) {newPhone ->
+            Phone(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 32.dp), phone = phone
+            ) { newPhone ->
                 resetPasswordViewModel.onResetPasswordChange(
                     email = email,
                     phone = newPhone,
@@ -111,7 +121,12 @@ fun Body(
             }
         }
         Spacer(modifier = Modifier.size(8.dp))
-        Password(password = password) { newPassword ->
+        Password(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
+            password = password
+        ) { newPassword ->
             resetPasswordViewModel.onResetPasswordChange(
                 email = email,
                 phone = phone,
@@ -121,7 +136,12 @@ fun Body(
             )
         }
         Spacer(modifier = Modifier.size(8.dp))
-        Password(label = "Confirm password", password = confirmPassword) { newConfirmPassword ->
+        Password(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
+            label = "Confirm password", password = confirmPassword
+        ) { newConfirmPassword ->
             resetPasswordViewModel.onResetPasswordChange(
                 email = email,
                 phone = phone,
@@ -134,7 +154,9 @@ fun Body(
         Spacer(modifier = Modifier.size(24.dp))
 
         ButtonResetPassword(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
             isResetPasswordEnabled = isResetPasswordEnabled,
             resetPasswordViewModel = resetPasswordViewModel
         )
