@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -64,7 +65,12 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
         SignInTitle(modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.size(24.dp))
 
-        Username(username = username) { newUsername ->
+        Username(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
+            username = username
+        ) { newUsername ->
             signInViewModel.onSignInChanged(
                 newUsername,
                 email,
@@ -75,7 +81,12 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             )
         }
         Spacer(modifier = Modifier.size(8.dp))
-        Email(email = email) { newEmail ->
+        Email(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
+            email = email
+        ) { newEmail ->
             signInViewModel.onSignInChanged(
                 username,
                 newEmail,
@@ -87,6 +98,9 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
         }
         Spacer(modifier = Modifier.size(8.dp))
         PhoneWithPrefix(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
             countriesPhonePrefix = countriesPhonePrefix,
             phonePrefix = phonePrefix,
             onPhonePrefixChange = { newPhonePrefix ->
@@ -112,7 +126,12 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             }
         )
         Spacer(modifier = Modifier.size(8.dp))
-        Password(password = password) { newPassword ->
+        Password(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
+            password = password
+        ) { newPassword ->
             signInViewModel.onSignInChanged(
                 username,
                 email,
@@ -123,7 +142,12 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             )
         }
         Spacer(modifier = Modifier.size(8.dp))
-        Password(label = "Confirm password", password = confirmPassword) { newConfirmPassword ->
+        Password(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
+            label = "Confirm password", password = confirmPassword
+        ) { newConfirmPassword ->
             signInViewModel.onSignInChanged(
                 username,
                 email,
@@ -137,7 +161,9 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
         Spacer(modifier = Modifier.size(36.dp))
 
         ButtonSignIn(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
             isLogInEnabled = isSignInEnabled,
             signInViewModel = signInViewModel
         )
