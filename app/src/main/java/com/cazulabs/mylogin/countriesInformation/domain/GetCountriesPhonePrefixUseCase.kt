@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetCountriesPhonePrefixUseCase @Inject constructor(private val repository: CountriesInformationRepository) {
 
     suspend operator fun invoke(): List<CountryPhonePrefixModel> {
-        return repository.getCountriesPhoneCode()
+        return repository.getCountriesPhonePrefix()
     }
 
 }
