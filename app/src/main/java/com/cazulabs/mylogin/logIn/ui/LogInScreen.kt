@@ -1,7 +1,9 @@
 package com.cazulabs.mylogin.logIn.ui
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -67,39 +71,65 @@ fun Body(modifier: Modifier, logInViewModel: LogInViewModel, navController: NavH
     val email by logInViewModel.email.observeAsState(initial = "")
     val phone by logInViewModel.phone.observeAsState(initial = "")
     val password by logInViewModel.password.observeAsState(initial = "")
+    val isLogInEmailMode by logInViewModel.isLogInEmailMode.observeAsState(initial = true)
     val isLogInEnabled by logInViewModel.isLogInEnabled.observeAsState(initial = false)
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         LogInTitle(modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.size(36.dp))
 
-        //TODO ADD EMAIL-PHONE LOGIN ONE WAY
+        LogInModeSelector(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            email = email,
+            phone = phone,
+            password = password,
+            isLogInEmailMode = isLogInEmailMode,
+            logInViewModel = logInViewModel
+        )
 
-        Email(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 32.dp),
-            email = email
-        ) { newEmail ->
-            logInViewModel.onLogInChanged(newEmail, phone, password)
+        AnimatedVisibility(visible = isLogInEmailMode) {
+            Email(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 32.dp),
+                email = email
+            ) { newEmail ->
+                logInViewModel.onLogInChanged(
+                    email = newEmail,
+                    phone = phone,
+                    password = password,
+                    isLogInEmailMode = isLogInEmailMode
+                )
+            }
+        }
+        AnimatedVisibility(visible = !isLogInEmailMode) {
+            Phone(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 32.dp),
+                phone = phone
+            ) { newPhone ->
+                logInViewModel.onLogInChanged(
+                    email = email,
+                    phone = newPhone,
+                    password = password,
+                    isLogInEmailMode = isLogInEmailMode
+                )
+            }
         }
         Spacer(modifier = Modifier.size(8.dp))
-        Phone(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 32.dp),
-            phone = phone,
-            onValueChange = { newPhone ->
-                logInViewModel.onLogInChanged(email, newPhone, password)
-            })
-        Spacer(modifier = Modifier.size(16.dp))
         Password(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 32.dp),
             password = password
         ) { newPassword ->
-            logInViewModel.onLogInChanged(email, phone, newPassword)
+            logInViewModel.onLogInChanged(
+                email = email,
+                phone = phone,
+                password = newPassword,
+                isLogInEmailMode = isLogInEmailMode
+            )
         }
 
         TextButton(
@@ -127,6 +157,45 @@ fun LogInTitle(modifier: Modifier) {
         text = "Log In",
         fontWeight = FontWeight.Bold
     )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LogInModeSelector(
+    modifier: Modifier,
+    email: String,
+    phone: String,
+    password: String,
+    isLogInEmailMode: Boolean,
+    logInViewModel: LogInViewModel
+) {
+    Row(modifier = modifier) {
+        FilterChip(
+            selected = isLogInEmailMode,
+            onClick = {
+                logInViewModel.onLogInChanged(
+                    email = email,
+                    phone = phone,
+                    password = password,
+                    isLogInEmailMode = true
+                )
+            },
+            label = { Text(text = "Email") }
+        )
+        Spacer(modifier = Modifier.size(8.dp))
+        FilterChip(
+            selected = !isLogInEmailMode,
+            onClick = {
+                logInViewModel.onLogInChanged(
+                    email = email,
+                    phone = phone,
+                    password = password,
+                    isLogInEmailMode = false
+                )
+            },
+            label = { Text(text = "Phone") }
+        )
+    }
 }
 
 @Composable

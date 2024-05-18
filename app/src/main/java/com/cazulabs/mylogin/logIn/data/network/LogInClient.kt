@@ -8,6 +8,9 @@ import retrofit2.http.GET
 interface LogInClient {
 
     @GET(Endpoints.DEFAULT)
-    suspend fun doLogIn(/*user: String, password: String*/): Response<LogInResponse>
+    suspend fun doLogInViaEmail(/*email: String, password: String*/): Response<LogInResponse>
+
+    @GET(Endpoints.DEFAULT)
+    suspend fun doLogInViaPhone(/*phone: String, password: String*/): Response<LogInResponse>
 
 }

@@ -6,13 +6,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cazulabs.mylogin.logIn.domain.LogInUseCase
+import com.cazulabs.mylogin.logIn.domain.LogInViaEmailUseCase
+import com.cazulabs.mylogin.logIn.domain.LogInViaPhoneUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LogInViewModel @Inject constructor(private val logInUseCase: LogInUseCase) : ViewModel() {
+class LogInViewModel @Inject constructor(
+    private val logInViaEmailUseCase: LogInViaEmailUseCase,
+    private val logInViaPhoneUseCase: LogInViaPhoneUseCase
+) : ViewModel() {
 
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
@@ -26,28 +30,45 @@ class LogInViewModel @Inject constructor(private val logInUseCase: LogInUseCase)
     private val _isLogInEnabled = MutableLiveData<Boolean>()
     val isLogInEnabled: LiveData<Boolean> = _isLogInEnabled
 
+    private val _isLogInEmailMode = MutableLiveData<Boolean>()
+    val isLogInEmailMode: LiveData<Boolean> = _isLogInEmailMode
+
     /**
      * Update viewModel variables when updated in input textFields
      */
     fun onLogInChanged(
         email: String,
         phone: String,
-        password: String
+        password: String,
+        isLogInEmailMode: Boolean
     ) {
         _email.value = email
         _phone.value = phone
         _password.value = password
+        _isLogInEmailMode.value = isLogInEmailMode
 
-        enableLogIn(email, phone, password)
+        if (isLogInEmailMode)
+            enableLogInViaEmail(email = email, password = password)
+        else
+            enableLogInViaPhone(phone = phone, password = password)
     }
 
     /**
-     * Conditions of input logIn to enable logIn button
+     * Conditions of input logIn via email to enable logIn button
      */
-    private fun enableLogIn(email: String, phone: String, password: String) {
+    private fun enableLogInViaEmail(email: String, password: String) {
         _isLogInEnabled.value =
             Patterns.EMAIL_ADDRESS.matcher(email).matches()
-                    && Patterns.PHONE.matcher(phone).matches()
+                    && password.isNotBlank()
+                    && password.isNotEmpty()
+    }
+
+    /**
+     * Conditions of input logIn via phone to enable logIn button
+     */
+    private fun enableLogInViaPhone(phone: String, password: String) {
+        _isLogInEnabled.value =
+            Patterns.PHONE.matcher(phone).matches()
                     && password.isNotBlank()
                     && password.isNotEmpty()
     }
@@ -57,9 +78,12 @@ class LogInViewModel @Inject constructor(private val logInUseCase: LogInUseCase)
      */
     fun onLogIn(): Boolean {
         viewModelScope.launch {
-            val result = logInUseCase(email.value!!, password.value!!)
+            val result = if (isLogInEmailMode.value!!)
+                logInViaEmailUseCase(email.value!!, password.value!!)
+            else
+                logInViaPhoneUseCase(phone.value!!, password.value!!)
 
-            if(result) {
+            if (result) {
                 Log.i("CARLOS", "GO IN!")
             }
         }
