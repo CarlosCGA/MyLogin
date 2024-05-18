@@ -39,6 +39,7 @@ fun SignInScreen(
                     .align(Alignment.CenterHorizontally),
                 signInViewModel
             )
+            Footer(modifier = Modifier, signInViewModel = signInViewModel)
         }
     }
 }
@@ -158,6 +159,7 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             )
         }
 
+        /*
         Spacer(modifier = Modifier.size(36.dp))
 
         ButtonSignIn(
@@ -167,6 +169,7 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             isLogInEnabled = isSignInEnabled,
             signInViewModel = signInViewModel
         )
+        */
     }
 }
 
@@ -189,4 +192,18 @@ fun SignInTitle(modifier: Modifier) {
         text = "Sign In",
         fontWeight = FontWeight.Bold
     )
+}
+
+@Composable
+fun Footer(modifier: Modifier, signInViewModel: SignInViewModel) {
+    val isSignInEnabled by signInViewModel.isSignInEnabled.observeAsState(initial = false)
+
+    ButtonSignIn(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 32.dp),
+        isLogInEnabled = isSignInEnabled,
+        signInViewModel = signInViewModel
+    )
+    Spacer(modifier = Modifier.size(16.dp))
 }
