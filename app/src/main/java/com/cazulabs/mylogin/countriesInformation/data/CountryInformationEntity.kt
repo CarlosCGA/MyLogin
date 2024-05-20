@@ -1,15 +1,16 @@
 package com.cazulabs.mylogin.countriesInformation.data
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "countries")
 data class CountryInformationEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int?,
-    val name: String,
-    val countryCode: String,
-    val emoji: String,
-    val unicode: String,
-    val dialCode: String,
-    val imageURL: String,
+    @PrimaryKey(autoGenerate = true) val id: Int,
+    @ColumnInfo(name = "name") val name: String?,
+    @ColumnInfo(name = "country_code") val countryCode: String?,
+    @ColumnInfo(name = "emoji") val emoji: String?,
+    @ColumnInfo(name = "unicode") val unicode: String?,
+    @ColumnInfo(name = "dial_code") val dialCode: String?,
+    @ColumnInfo(name = "image_url") val imageURL: String?,
 )
