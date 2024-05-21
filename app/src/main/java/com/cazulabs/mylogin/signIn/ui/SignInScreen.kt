@@ -1,5 +1,6 @@
 package com.cazulabs.mylogin.signIn.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,22 +9,42 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import com.cazulabs.mylogin.core.ui.components.BackScreenButton
 import com.cazulabs.mylogin.core.ui.components.textFields.Email
+import com.cazulabs.mylogin.core.ui.components.textFields.MenuItem
 import com.cazulabs.mylogin.core.ui.components.textFields.Password
+import com.cazulabs.mylogin.core.ui.components.textFields.PhonePrefixDropDown
 import com.cazulabs.mylogin.core.ui.components.textFields.PhoneWithPrefix
 import com.cazulabs.mylogin.core.ui.components.textFields.Username
+import com.cazulabs.mylogin.countriesInformation.data.model.CountryPhonePrefixModel
+import com.cazulabs.mylogin.countriesInformation.ui.CountriesInformationUiState
 
 @Composable
 fun SignInScreen(
@@ -52,6 +73,18 @@ fun Header(modifier: Modifier, navController: NavController) {
 
 @Composable
 fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+
+    val uiState by produceState<CountriesInformationUiState>(
+        initialValue = CountriesInformationUiState.Loading,
+        key1 = lifecycle,
+        key2 = signInViewModel
+    ) {
+        lifecycle.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+            signInViewModel.uiState.collect { value = it }
+        }
+    }
+
     val username by signInViewModel.username.observeAsState(initial = "")
     val email by signInViewModel.email.observeAsState(initial = "")
     val countriesPhonePrefix by signInViewModel.countriesPhonePrefix.observeAsState(initial = emptyList())
@@ -97,6 +130,36 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             )
         }
         Spacer(modifier = Modifier.size(8.dp))
+        PhoneWithPrefixFlow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
+            countriesInformationUiState = uiState,
+            countriesPhonePrefix = countriesPhonePrefix,
+            phonePrefix = phonePrefix,
+            onPhonePrefixChange = { newPhonePrefix ->
+                signInViewModel.onSignInChanged(
+                    username,
+                    email,
+                    newPhonePrefix,
+                    phone,
+                    password,
+                    confirmPassword
+                )
+            },
+            phone = phone,
+            onValueChange = { newPhone ->
+                signInViewModel.onSignInChanged(
+                    username,
+                    email,
+                    phonePrefix,
+                    newPhone,
+                    password,
+                    confirmPassword
+                )
+            }
+        )
+        /*
         PhoneWithPrefix(
             modifier = Modifier
                 .fillMaxWidth()
@@ -125,6 +188,7 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
                 )
             }
         )
+        */
         Spacer(modifier = Modifier.size(8.dp))
         Password(
             modifier = Modifier
@@ -169,6 +233,81 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             signInViewModel = signInViewModel
         )
 
+    }
+}
+
+@Composable
+fun PhoneWithPrefixFlow(
+    modifier: Modifier = Modifier,
+    phonePrefix: String = "",
+    onPhonePrefixChange: (String) -> Unit = {},
+    countriesInformationUiState: CountriesInformationUiState,
+    countriesPhonePrefix: List<CountryPhonePrefixModel>,
+    phone: String,
+    onValueChange: (String) -> Unit
+) {
+    OutlinedTextField(
+        modifier = modifier,
+        value = phone,
+        onValueChange = { newPhone ->
+            onValueChange(newPhone)
+        },
+        singleLine = true,
+        prefix = {
+            when (countriesInformationUiState) {
+                is CountriesInformationUiState.Error -> {
+                }
+
+                CountriesInformationUiState.Loading -> {
+                    CircularProgressIndicator()
+                }
+
+                is CountriesInformationUiState.Success -> {
+                    PhonePrefixDropDownFlow(
+                        phonePrefix = phonePrefix,
+                        countriesPhonePrefix = countriesPhonePrefix,
+                    )
+                }
+            }
+
+        },
+        label = { Text(text = "Phone") },
+        leadingIcon = {
+            Icon(imageVector = Icons.Outlined.Phone, contentDescription = "phone")
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
+    )
+}
+
+@Composable
+fun PhonePrefixDropDownFlow(
+    countriesPhonePrefix: List<CountryPhonePrefixModel>,
+    phonePrefix: String,
+) {
+    var isExpanded by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    var itemSelected by rememberSaveable {
+        mutableStateOf(phonePrefix)
+    }
+
+    Text(modifier = Modifier.clickable { isExpanded = true }, text = itemSelected)
+
+    DropdownMenu(expanded = isExpanded, onDismissRequest = { isExpanded = false }) {
+        countriesPhonePrefix.map { country ->
+            if (country.dialCode.isNotEmpty()) {
+                DropdownMenuItem(
+                    text = {
+                        MenuItem(country = country)
+                    },
+                    onClick = {
+                        itemSelected = country.dialCode
+                        isExpanded = false
+                    }
+                )
+            }
+        }
     }
 }
 
