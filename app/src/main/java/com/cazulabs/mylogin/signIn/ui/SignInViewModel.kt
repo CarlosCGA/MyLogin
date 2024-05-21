@@ -7,17 +7,34 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cazulabs.mylogin.countriesInformation.data.model.CountryPhonePrefixModel
+import com.cazulabs.mylogin.countriesInformation.domain.GetCountriesInformationFlowUseCase
 import com.cazulabs.mylogin.countriesInformation.domain.GetCountriesPhonePrefixUseCase
+import com.cazulabs.mylogin.countriesInformation.ui.CountriesInformationUiState
+import com.cazulabs.mylogin.countriesInformation.ui.CountriesInformationUiState.Success
 import com.cazulabs.mylogin.signIn.domain.SignInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
-    private val getCountriesPhonePrefixUseCase: GetCountriesPhonePrefixUseCase
+    private val getCountriesPhonePrefixUseCase: GetCountriesPhonePrefixUseCase,
+    getCountriesInformationFlowUseCase: GetCountriesInformationFlowUseCase
 ) : ViewModel() {
+
+    val uiState: StateFlow<CountriesInformationUiState> =
+        getCountriesInformationFlowUseCase().map(::Success)
+            .catch { Error(it) }
+            .stateIn(
+                viewModelScope, SharingStarted.WhileSubscribed(5000),
+                CountriesInformationUiState.Loading
+            )
 
     private val _username = MutableLiveData<String>()
     val username: LiveData<String> = _username
