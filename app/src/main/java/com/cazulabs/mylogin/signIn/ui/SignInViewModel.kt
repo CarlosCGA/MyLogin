@@ -68,7 +68,7 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    fun getAndInsert() {
+    fun insertCountriesInformation() {
         viewModelScope.launch {
             insertCountriesInformationUseCase()
         }
