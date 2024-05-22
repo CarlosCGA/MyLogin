@@ -29,27 +29,8 @@ class CountriesInformationRepository @Inject constructor(
             }
         }
 
-
-    /*
-    var countriesPhonePrefix: List<CountryPhonePrefixModel> =
-        countriesInformationDAO.getCountriesPhonePrefix()
-            .map {
-                CountryPhonePrefixModel(
-                    it.name ?: "",
-                    it.emoji ?: "",
-                    it.dialCode ?: ""
-                )
-            }
-            */
-
-    /*
-    val countriesInformation: Flow<List<CountryInformationModel>> =
-        countriesInformationDAO.getCountriesInformation().map { items -> items.map { CountryInformationModel(it.id, it.task, it.isDone) } }
-        */
-
-
-    suspend fun insertAll(countriesInformation: List<CountryInformationModel>) {
-        countriesInformationDAO.insertAll(countriesInformation.map { countryInformationModel ->
+    suspend fun insertAll() {
+        countriesInformationDAO.insertAll(getCountriesInformation().map { countryInformationModel ->
             countryInformationModel.toData()
         })
     }
@@ -60,53 +41,9 @@ class CountriesInformationRepository @Inject constructor(
     }
     */
 
-    suspend fun getAndInsertInLocal() {
-        insertAll(api.getCountriesInformation().map { it.toCountryInformationModel() })
-    }
-
     suspend fun getCountriesInformation(): List<CountryInformationModel> {
         return api.getCountriesInformation().map { it.toCountryInformationModel() }
     }
-
-    suspend fun getCountriesPhonePrefix(): List<CountryPhonePrefixModel> {
-        return api.getCountriesInformation()
-            .map { it.toCountryInformationPhonePrefix() }
-    }
-    /*
-    suspend fun getCountriesInformation(): List<CountryInformationModel> {
-        if (countriesInformation.isEmpty()) {
-            countriesInformation = api.getCountriesInformation().map { countryResponse ->
-                CountryInformationModel(
-                    name = countryResponse.name ?: "",
-                    countryCode = countryResponse.countryCode ?: "",
-                    emoji = countryResponse.emoji ?: "",
-                    unicode = countryResponse.unicode ?: "",
-                    dialCode = countryResponse.dialCode ?: "",
-                    imageURL = countryResponse.imageURL ?: ""
-                )
-            }
-            insertAll(countriesInformation)
-        }
-
-        return countriesInformation
-    }
-
-    suspend fun getCountriesPhonePrefix(): List<CountryPhonePrefixModel> {
-        return countriesPhonePrefix.ifEmpty {
-            insertAll(api.getCountriesInformation().map { countryResponse ->
-                CountryInformationModel(
-                    name = countryResponse.name ?: "",
-                    countryCode = countryResponse.countryCode ?: "",
-                    emoji = countryResponse.emoji ?: "",
-                    unicode = countryResponse.unicode ?: "",
-                    dialCode = countryResponse.dialCode ?: "",
-                    imageURL = countryResponse.imageURL ?: ""
-                )
-            })
-            emptyList()
-        }
-    }
-    */
 
 }
 

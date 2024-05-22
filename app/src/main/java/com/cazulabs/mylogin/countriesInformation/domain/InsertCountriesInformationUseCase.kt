@@ -6,7 +6,7 @@ import javax.inject.Inject
 class InsertCountriesInformationUseCase @Inject constructor(private val repository: CountriesInformationRepository) {
 
     suspend operator fun invoke() {
-        repository.getAndInsertInLocal()
+        repository.insertAll()
     }
 
 }
