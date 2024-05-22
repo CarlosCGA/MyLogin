@@ -60,6 +60,10 @@ class CountriesInformationRepository @Inject constructor(
     }
     */
 
+    suspend fun getAndInsertInLocal() {
+        insertAll(api.getCountriesInformation().map { it.toCountryInformationModel() })
+    }
+
     suspend fun getCountriesInformation(): List<CountryInformationModel> {
         return api.getCountriesInformation().map { it.toCountryInformationModel() }
     }
@@ -120,12 +124,12 @@ fun CountryInformationModel.toData(): CountryInformationEntity {
 
 fun CountryInformationResponse.toCountryInformationModel(): CountryInformationModel {
     return CountryInformationModel(
-        this.name,
-        this.countryCode,
-        this.emoji,
-        this.unicode,
-        this.dialCode,
-        this.imageURL
+        this.name ?: "",
+        this.countryCode ?: "",
+        this.emoji ?: "",
+        this.unicode ?: "",
+        this.dialCode ?: "",
+        this.imageURL ?: ""
     )
 }
 

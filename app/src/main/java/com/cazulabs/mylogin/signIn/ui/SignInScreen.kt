@@ -1,8 +1,10 @@
 package com.cazulabs.mylogin.signIn.ui
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -40,9 +42,8 @@ import com.cazulabs.mylogin.core.ui.components.BackScreenButton
 import com.cazulabs.mylogin.core.ui.components.textFields.Email
 import com.cazulabs.mylogin.core.ui.components.textFields.MenuItem
 import com.cazulabs.mylogin.core.ui.components.textFields.Password
-import com.cazulabs.mylogin.core.ui.components.textFields.PhonePrefixDropDown
-import com.cazulabs.mylogin.core.ui.components.textFields.PhoneWithPrefix
 import com.cazulabs.mylogin.core.ui.components.textFields.Username
+import com.cazulabs.mylogin.countriesInformation.data.model.CountryInformationModel
 import com.cazulabs.mylogin.countriesInformation.data.model.CountryPhonePrefixModel
 import com.cazulabs.mylogin.countriesInformation.ui.CountriesInformationUiState
 
@@ -157,7 +158,8 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
                     password,
                     confirmPassword
                 )
-            }
+            },
+            signInViewModel = signInViewModel
         )
         /*
         PhoneWithPrefix(
@@ -244,7 +246,8 @@ fun PhoneWithPrefixFlow(
     countriesInformationUiState: CountriesInformationUiState,
     countriesPhonePrefix: List<CountryPhonePrefixModel>,
     phone: String,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    signInViewModel: SignInViewModel
 ) {
     OutlinedTextField(
         modifier = modifier,
@@ -263,10 +266,14 @@ fun PhoneWithPrefixFlow(
                 }
 
                 is CountriesInformationUiState.Success -> {
-                    PhonePrefixDropDownFlow(
-                        phonePrefix = phonePrefix,
-                        countriesPhonePrefix = countriesPhonePrefix,
-                    )
+                    if(countriesInformationUiState.countriesInformation.isNotEmpty()) {
+                        PhonePrefixDropDownFlow2(
+                            phonePrefix = phonePrefix,
+                            countriesPhonePrefix = countriesInformationUiState.countriesInformation,
+                        )
+                    }
+                    else
+                        signInViewModel.getAndInsert()
                 }
             }
 
@@ -308,6 +315,49 @@ fun PhonePrefixDropDownFlow(
                 )
             }
         }
+    }
+}
+
+@Composable
+fun PhonePrefixDropDownFlow2(
+    countriesPhonePrefix: List<CountryInformationModel>,
+    phonePrefix: String,
+) {
+    var isExpanded by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    var itemSelected by rememberSaveable {
+        mutableStateOf(phonePrefix)
+    }
+
+    Text(modifier = Modifier.clickable { isExpanded = true }, text = itemSelected)
+
+    DropdownMenu(expanded = isExpanded, onDismissRequest = { isExpanded = false }) {
+        countriesPhonePrefix.map { country ->
+            if (country.dialCode.isNotEmpty()) {
+                DropdownMenuItem(
+                    text = {
+                        MenuItemFlow(country = country)
+                    },
+                    onClick = {
+                        itemSelected = country.dialCode
+                        isExpanded = false
+                    }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun MenuItemFlow(country: CountryInformationModel) {
+    Row {
+        Text(text = country.emoji)
+        Spacer(modifier = Modifier.size(4.dp))
+        Text(text = country.name)
+        Spacer(modifier = Modifier.size(8.dp))
+        Text(text = country.dialCode, fontWeight = FontWeight.Bold)
     }
 }
 

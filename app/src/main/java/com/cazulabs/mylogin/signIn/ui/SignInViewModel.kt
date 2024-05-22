@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cazulabs.mylogin.countriesInformation.data.model.CountryPhonePrefixModel
+import com.cazulabs.mylogin.countriesInformation.domain.GetAndInsertUseCase
 import com.cazulabs.mylogin.countriesInformation.domain.GetCountriesInformationFlowUseCase
 import com.cazulabs.mylogin.countriesInformation.domain.GetCountriesPhonePrefixUseCase
 import com.cazulabs.mylogin.countriesInformation.ui.CountriesInformationUiState
@@ -25,6 +26,7 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
     private val getCountriesPhonePrefixUseCase: GetCountriesPhonePrefixUseCase,
+    private val getAndInsertUseCase: GetAndInsertUseCase,
     getCountriesInformationFlowUseCase: GetCountriesInformationFlowUseCase
 ) : ViewModel() {
 
@@ -63,6 +65,12 @@ class SignInViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             _countriesPhonePrefix.value = getCountriesPhonePrefixUseCase()
+        }
+    }
+
+    fun getAndInsert() {
+        viewModelScope.launch {
+            getAndInsertUseCase()
         }
     }
 
