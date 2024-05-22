@@ -6,9 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cazulabs.mylogin.countriesInformation.data.model.CountryPhonePrefixModel
 import com.cazulabs.mylogin.countriesInformation.domain.GetCountriesInformationFlowUseCase
-import com.cazulabs.mylogin.countriesInformation.domain.GetCountriesPhonePrefixUseCase
 import com.cazulabs.mylogin.countriesInformation.domain.InsertCountriesInformationUseCase
 import com.cazulabs.mylogin.countriesInformation.ui.CountriesInformationUiState
 import com.cazulabs.mylogin.countriesInformation.ui.CountriesInformationUiState.Success
@@ -25,7 +23,6 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
-    private val getCountriesPhonePrefixUseCase: GetCountriesPhonePrefixUseCase,
     private val insertCountriesInformationUseCase: InsertCountriesInformationUseCase,
     getCountriesInformationFlowUseCase: GetCountriesInformationFlowUseCase
 ) : ViewModel() {
@@ -44,9 +41,6 @@ class SignInViewModel @Inject constructor(
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
 
-    private val _countriesPhonePrefix = MutableLiveData<List<CountryPhonePrefixModel>>()
-    val countriesPhonePrefix: LiveData<List<CountryPhonePrefixModel>> = _countriesPhonePrefix
-
     private val _phonePrefix = MutableLiveData<String>()
     val phonePrefix: LiveData<String> = _phonePrefix
 
@@ -61,12 +55,6 @@ class SignInViewModel @Inject constructor(
 
     private val _isSignInEnabled = MutableLiveData<Boolean>()
     val isSignInEnabled: LiveData<Boolean> = _isSignInEnabled
-
-    init {
-        viewModelScope.launch {
-            _countriesPhonePrefix.value = getCountriesPhonePrefixUseCase()
-        }
-    }
 
     fun insertCountriesInformation() {
         viewModelScope.launch {

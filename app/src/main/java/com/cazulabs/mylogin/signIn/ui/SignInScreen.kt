@@ -87,7 +87,6 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
 
     val username by signInViewModel.username.observeAsState(initial = "")
     val email by signInViewModel.email.observeAsState(initial = "")
-    val countriesPhonePrefix by signInViewModel.countriesPhonePrefix.observeAsState(initial = emptyList())
     val phonePrefix by signInViewModel.phonePrefix.observeAsState(initial = "+34")
     val phone by signInViewModel.phone.observeAsState(initial = "")
     val password by signInViewModel.password.observeAsState(initial = "")
@@ -135,7 +134,6 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
                 .fillMaxWidth()
                 .padding(horizontal = 32.dp),
             countriesInformationUiState = uiState,
-            countriesPhonePrefix = countriesPhonePrefix,
             phonePrefix = phonePrefix,
             onPhonePrefixChange = { newPhonePrefix ->
                 signInViewModel.onSignInChanged(
@@ -243,7 +241,6 @@ fun PhoneWithPrefixFlow(
     phonePrefix: String = "",
     onPhonePrefixChange: (String) -> Unit = {},
     countriesInformationUiState: CountriesInformationUiState,
-    countriesPhonePrefix: List<CountryPhonePrefixModel>,
     phone: String,
     onValueChange: (String) -> Unit,
     signInViewModel: SignInViewModel
@@ -265,13 +262,12 @@ fun PhoneWithPrefixFlow(
                 }
 
                 is CountriesInformationUiState.Success -> {
-                    if(countriesInformationUiState.countriesInformation.isNotEmpty()) {
+                    if (countriesInformationUiState.countriesInformation.isNotEmpty()) {
                         PhonePrefixDropDownFlow2(
                             phonePrefix = phonePrefix,
                             countriesPhonePrefix = countriesInformationUiState.countriesInformation,
                         )
-                    }
-                    else
+                    } else
                         signInViewModel.insertCountriesInformation()
                 }
             }
