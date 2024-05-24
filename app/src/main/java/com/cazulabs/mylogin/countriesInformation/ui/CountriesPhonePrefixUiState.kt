@@ -5,6 +5,6 @@ import com.cazulabs.mylogin.countriesInformation.data.model.CountryPhonePrefixMo
 sealed interface CountriesPhonePrefixUiState {
     data object Loading : CountriesPhonePrefixUiState
     data class Error(val throwable: Throwable) : CountriesPhonePrefixUiState
-    data class Success(val countriesInformation: List<CountryPhonePrefixModel>) :
+    data class Success(val countriesPhonePrefix: List<CountryPhonePrefixModel>) :
         CountriesPhonePrefixUiState
 }

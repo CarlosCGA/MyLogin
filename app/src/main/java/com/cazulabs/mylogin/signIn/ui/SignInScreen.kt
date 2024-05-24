@@ -261,10 +261,10 @@ fun PhoneWithPrefixFlow(
                 }
 
                 is CountriesPhonePrefixUiState.Success -> {
-                    if (uiState.countriesInformation.isNotEmpty()) {
+                    if (uiState.countriesPhonePrefix.isNotEmpty()) {
                         PhonePrefixDropDownFlow2(
                             phonePrefix = phonePrefix,
-                            countriesPhonePrefix = uiState.countriesInformation,
+                            countriesPhonePrefix = uiState.countriesPhonePrefix,
                         )
                     } else
                         signInViewModel.insertCountriesInformation()
