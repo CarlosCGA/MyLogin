@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Phone
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -18,21 +19,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cazulabs.mylogin.countriesInformation.data.model.CountryPhonePrefixModel
+import com.cazulabs.mylogin.countriesInformation.ui.CountriesPhonePrefixUiState
+import com.cazulabs.mylogin.signIn.ui.SignInViewModel
 
 @Composable
 fun PhoneWithPrefix(
     modifier: Modifier = Modifier,
     phonePrefix: String = "",
-    onPhonePrefixChange: (String) -> Unit = {},
-    countriesPhonePrefix: List<CountryPhonePrefixModel>,
+    onPhonePrefixChange: (String) -> Unit,
+    uiState: CountriesPhonePrefixUiState,
     phone: String,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    signInViewModel: SignInViewModel
 ) {
     OutlinedTextField(
         modifier = modifier,
@@ -42,12 +44,26 @@ fun PhoneWithPrefix(
         },
         singleLine = true,
         prefix = {
-            if (phonePrefix.isNotEmpty())
-                PhonePrefixDropDown(
-                    phonePrefix = phonePrefix,
-                    countriesPhonePrefix = countriesPhonePrefix,
-                )
-            //PhonePrefix(phonePrefix = phonePrefix, onClickPhonePrefix = onClickPhonePrefix)
+            when (uiState) {
+                is CountriesPhonePrefixUiState.Error -> {
+                }
+
+                CountriesPhonePrefixUiState.Loading -> {
+                    CircularProgressIndicator()
+                }
+
+                is CountriesPhonePrefixUiState.Success -> {
+                    if (uiState.countriesPhonePrefix.isNotEmpty()) {
+                        PhonePrefixDropDown(
+                            phonePrefix = phonePrefix,
+                            onPhonePrefixChange = onPhonePrefixChange,
+                            countriesPhonePrefix = uiState.countriesPhonePrefix,
+                        )
+                    } else
+                        signInViewModel.insertCountriesInformation()
+                }
+            }
+
         },
         label = { Text(text = "Phone") },
         leadingIcon = {
@@ -58,16 +74,10 @@ fun PhoneWithPrefix(
 }
 
 @Composable
-fun PhonePrefix(phonePrefix: String, onClickPhonePrefix: () -> Unit) {
-    Text(modifier = Modifier.clickable {
-        onClickPhonePrefix()
-    }, text = phonePrefix, color = Color.Gray)
-}
-
-@Composable
 fun PhonePrefixDropDown(
     countriesPhonePrefix: List<CountryPhonePrefixModel>,
     phonePrefix: String,
+    onPhonePrefixChange: (String) -> Unit,
 ) {
     var isExpanded by rememberSaveable {
         mutableStateOf(false)
@@ -88,6 +98,7 @@ fun PhonePrefixDropDown(
                     },
                     onClick = {
                         itemSelected = country.dialCode
+                        onPhonePrefixChange(country.dialCode)
                         isExpanded = false
                     }
                 )
@@ -107,6 +118,7 @@ fun MenuItem(country: CountryPhonePrefixModel) {
     }
 }
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun PhoneWithPrefixPreview() {
@@ -117,7 +129,8 @@ fun PhoneWithPrefixPreview() {
         CountryPhonePrefixModel("Great Britain", "Gb", "+2"),
         CountryPhonePrefixModel("Germany", "GR", "+48"),
     )
-    PhoneWithPrefix(phonePrefix = "34", countriesPhonePrefix = countries, phone = "") {
+    PhoneWithPrefix(phonePrefix = "34", onPhonePrefixChange = {},  countriesPhonePrefix = countries, phone = "") {
 
     }
 }
+*/

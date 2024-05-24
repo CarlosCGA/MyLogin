@@ -6,27 +6,40 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cazulabs.mylogin.countriesInformation.data.model.CountryPhonePrefixModel
-import com.cazulabs.mylogin.countriesInformation.domain.GetCountriesPhonePrefixUseCase
+import com.cazulabs.mylogin.countriesInformation.domain.GetCountriesPhonePrefixFlowUseCase
+import com.cazulabs.mylogin.countriesInformation.domain.InsertCountriesInformationUseCase
+import com.cazulabs.mylogin.countriesInformation.ui.CountriesPhonePrefixUiState
+import com.cazulabs.mylogin.countriesInformation.ui.CountriesPhonePrefixUiState.Success
 import com.cazulabs.mylogin.signIn.domain.SignInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
-    private val getCountriesPhonePrefixUseCase: GetCountriesPhonePrefixUseCase
+    private val insertCountriesInformationUseCase: InsertCountriesInformationUseCase,
+    getCountriesPhonePrefixUseCase: GetCountriesPhonePrefixFlowUseCase
 ) : ViewModel() {
+
+    val uiState: StateFlow<CountriesPhonePrefixUiState> =
+        getCountriesPhonePrefixUseCase().map(::Success)
+            .catch { Error(it) }
+            .stateIn(
+                viewModelScope, SharingStarted.WhileSubscribed(5000),
+                CountriesPhonePrefixUiState.Loading
+            )
 
     private val _username = MutableLiveData<String>()
     val username: LiveData<String> = _username
 
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
-
-    private val _countriesPhonePrefix = MutableLiveData<List<CountryPhonePrefixModel>>()
-    val countriesPhonePrefix: LiveData<List<CountryPhonePrefixModel>> = _countriesPhonePrefix
 
     private val _phonePrefix = MutableLiveData<String>()
     val phonePrefix: LiveData<String> = _phonePrefix
@@ -43,9 +56,9 @@ class SignInViewModel @Inject constructor(
     private val _isSignInEnabled = MutableLiveData<Boolean>()
     val isSignInEnabled: LiveData<Boolean> = _isSignInEnabled
 
-    init {
+    fun insertCountriesInformation() {
         viewModelScope.launch {
-            _countriesPhonePrefix.value = getCountriesPhonePrefixUseCase()
+            insertCountriesInformationUseCase()
         }
     }
 

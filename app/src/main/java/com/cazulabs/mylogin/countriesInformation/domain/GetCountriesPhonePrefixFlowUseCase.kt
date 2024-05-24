@@ -2,12 +2,11 @@ package com.cazulabs.mylogin.countriesInformation.domain
 
 import com.cazulabs.mylogin.countriesInformation.data.CountriesInformationRepository
 import com.cazulabs.mylogin.countriesInformation.data.model.CountryPhonePrefixModel
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetCountriesPhonePrefixUseCase @Inject constructor(private val repository: CountriesInformationRepository) {
+class GetCountriesPhonePrefixFlowUseCase @Inject constructor(private val repository: CountriesInformationRepository) {
 
-    suspend operator fun invoke(): List<CountryPhonePrefixModel> {
-        return repository.getCountriesPhoneCode()
-    }
+    operator fun invoke(): Flow<List<CountryPhonePrefixModel>> = repository.countriesPhonePrefix
 
 }

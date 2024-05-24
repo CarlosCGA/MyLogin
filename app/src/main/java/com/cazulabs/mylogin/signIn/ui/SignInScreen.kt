@@ -13,17 +13,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import com.cazulabs.mylogin.core.ui.components.BackScreenButton
 import com.cazulabs.mylogin.core.ui.components.textFields.Email
 import com.cazulabs.mylogin.core.ui.components.textFields.Password
 import com.cazulabs.mylogin.core.ui.components.textFields.PhoneWithPrefix
 import com.cazulabs.mylogin.core.ui.components.textFields.Username
+import com.cazulabs.mylogin.countriesInformation.ui.CountriesPhonePrefixUiState
 
 @Composable
 fun SignInScreen(
@@ -52,9 +57,20 @@ fun Header(modifier: Modifier, navController: NavController) {
 
 @Composable
 fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+
+    val uiState by produceState<CountriesPhonePrefixUiState>(
+        initialValue = CountriesPhonePrefixUiState.Loading,
+        key1 = lifecycle,
+        key2 = signInViewModel
+    ) {
+        lifecycle.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+            signInViewModel.uiState.collect { value = it }
+        }
+    }
+
     val username by signInViewModel.username.observeAsState(initial = "")
     val email by signInViewModel.email.observeAsState(initial = "")
-    val countriesPhonePrefix by signInViewModel.countriesPhonePrefix.observeAsState(initial = emptyList())
     val phonePrefix by signInViewModel.phonePrefix.observeAsState(initial = "+34")
     val phone by signInViewModel.phone.observeAsState(initial = "")
     val password by signInViewModel.password.observeAsState(initial = "")
@@ -101,7 +117,7 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 32.dp),
-            countriesPhonePrefix = countriesPhonePrefix,
+            uiState = uiState,
             phonePrefix = phonePrefix,
             onPhonePrefixChange = { newPhonePrefix ->
                 signInViewModel.onSignInChanged(
@@ -123,7 +139,8 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
                     password,
                     confirmPassword
                 )
-            }
+            },
+            signInViewModel = signInViewModel
         )
         Spacer(modifier = Modifier.size(8.dp))
         Password(
