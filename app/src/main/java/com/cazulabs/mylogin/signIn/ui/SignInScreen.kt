@@ -42,9 +42,8 @@ import com.cazulabs.mylogin.core.ui.components.textFields.Email
 import com.cazulabs.mylogin.core.ui.components.textFields.MenuItem
 import com.cazulabs.mylogin.core.ui.components.textFields.Password
 import com.cazulabs.mylogin.core.ui.components.textFields.Username
-import com.cazulabs.mylogin.countriesInformation.data.model.CountryInformationModel
 import com.cazulabs.mylogin.countriesInformation.data.model.CountryPhonePrefixModel
-import com.cazulabs.mylogin.countriesInformation.ui.CountriesInformationUiState
+import com.cazulabs.mylogin.countriesInformation.ui.CountriesPhonePrefixUiState
 
 @Composable
 fun SignInScreen(
@@ -75,8 +74,8 @@ fun Header(modifier: Modifier, navController: NavController) {
 fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
     val lifecycle = LocalLifecycleOwner.current.lifecycle
 
-    val uiState by produceState<CountriesInformationUiState>(
-        initialValue = CountriesInformationUiState.Loading,
+    val uiState by produceState<CountriesPhonePrefixUiState>(
+        initialValue = CountriesPhonePrefixUiState.Loading,
         key1 = lifecycle,
         key2 = signInViewModel
     ) {
@@ -133,7 +132,7 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 32.dp),
-            countriesInformationUiState = uiState,
+            uiState = uiState,
             phonePrefix = phonePrefix,
             onPhonePrefixChange = { newPhonePrefix ->
                 signInViewModel.onSignInChanged(
@@ -240,7 +239,7 @@ fun PhoneWithPrefixFlow(
     modifier: Modifier = Modifier,
     phonePrefix: String = "",
     onPhonePrefixChange: (String) -> Unit = {},
-    countriesInformationUiState: CountriesInformationUiState,
+    uiState: CountriesPhonePrefixUiState,
     phone: String,
     onValueChange: (String) -> Unit,
     signInViewModel: SignInViewModel
@@ -253,19 +252,19 @@ fun PhoneWithPrefixFlow(
         },
         singleLine = true,
         prefix = {
-            when (countriesInformationUiState) {
-                is CountriesInformationUiState.Error -> {
+            when (uiState) {
+                is CountriesPhonePrefixUiState.Error -> {
                 }
 
-                CountriesInformationUiState.Loading -> {
+                CountriesPhonePrefixUiState.Loading -> {
                     CircularProgressIndicator()
                 }
 
-                is CountriesInformationUiState.Success -> {
-                    if (countriesInformationUiState.countriesInformation.isNotEmpty()) {
+                is CountriesPhonePrefixUiState.Success -> {
+                    if (uiState.countriesInformation.isNotEmpty()) {
                         PhonePrefixDropDownFlow2(
                             phonePrefix = phonePrefix,
-                            countriesPhonePrefix = countriesInformationUiState.countriesInformation,
+                            countriesPhonePrefix = uiState.countriesInformation,
                         )
                     } else
                         signInViewModel.insertCountriesInformation()
@@ -315,7 +314,7 @@ fun PhonePrefixDropDownFlow(
 
 @Composable
 fun PhonePrefixDropDownFlow2(
-    countriesPhonePrefix: List<CountryInformationModel>,
+    countriesPhonePrefix: List<CountryPhonePrefixModel>,
     phonePrefix: String,
 ) {
     var isExpanded by rememberSaveable {
@@ -346,7 +345,7 @@ fun PhonePrefixDropDownFlow2(
 }
 
 @Composable
-fun MenuItemFlow(country: CountryInformationModel) {
+fun MenuItemFlow(country: CountryPhonePrefixModel) {
     Row {
         Text(text = country.emoji)
         Spacer(modifier = Modifier.size(4.dp))

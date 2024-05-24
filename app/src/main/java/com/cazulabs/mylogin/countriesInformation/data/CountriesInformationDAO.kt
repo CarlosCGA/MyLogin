@@ -13,7 +13,7 @@ interface CountriesInformationDAO {
     fun getCountriesInformation(): Flow<List<CountryInformationEntity>>
 
     @Query("SELECT id, name, emoji, dial_code FROM countries")
-    fun getCountriesPhonePrefix(): List<CountryInformationEntity>
+    fun getCountriesPhonePrefix(): Flow<List<CountryInformationEntity>>
 
     @Insert
     suspend fun insertAll(countriesInformation: List<CountryInformationEntity>)

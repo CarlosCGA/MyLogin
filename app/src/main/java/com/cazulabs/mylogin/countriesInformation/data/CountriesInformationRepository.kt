@@ -29,9 +29,8 @@ class CountriesInformationRepository @Inject constructor(
             }
         }
 
-    /* TODO IMPLEMENT (have to create/uncomment getCountriesPhonePrefix() method in DAO)
     val countriesPhonePrefix: Flow<List<CountryPhonePrefixModel>> =
-        countriesInformationDAO.getCountriesInformation().map { items ->
+        countriesInformationDAO.getCountriesPhonePrefix().map { items ->
             items.map {
                 CountryPhonePrefixModel(
                     name = it.name ?: "",
@@ -40,7 +39,7 @@ class CountriesInformationRepository @Inject constructor(
                 )
             }
         }
-        */
+
 
     suspend fun insertAll() {
         countriesInformationDAO.insertAll(getCountriesInformation().map { countryInformationModel ->

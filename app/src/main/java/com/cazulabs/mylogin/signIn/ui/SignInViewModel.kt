@@ -6,10 +6,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cazulabs.mylogin.countriesInformation.domain.GetCountriesInformationFlowUseCase
+import com.cazulabs.mylogin.countriesInformation.domain.GetCountriesPhonePrefixFlowUseCase
 import com.cazulabs.mylogin.countriesInformation.domain.InsertCountriesInformationUseCase
-import com.cazulabs.mylogin.countriesInformation.ui.CountriesInformationUiState
-import com.cazulabs.mylogin.countriesInformation.ui.CountriesInformationUiState.Success
+import com.cazulabs.mylogin.countriesInformation.ui.CountriesPhonePrefixUiState
+import com.cazulabs.mylogin.countriesInformation.ui.CountriesPhonePrefixUiState.Success
 import com.cazulabs.mylogin.signIn.domain.SignInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -24,15 +24,15 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
     private val insertCountriesInformationUseCase: InsertCountriesInformationUseCase,
-    getCountriesInformationFlowUseCase: GetCountriesInformationFlowUseCase
+    getCountriesPhonePrefixUseCase: GetCountriesPhonePrefixFlowUseCase
 ) : ViewModel() {
 
-    val uiState: StateFlow<CountriesInformationUiState> =
-        getCountriesInformationFlowUseCase().map(::Success)
+    val uiState: StateFlow<CountriesPhonePrefixUiState> =
+        getCountriesPhonePrefixUseCase().map(::Success)
             .catch { Error(it) }
             .stateIn(
                 viewModelScope, SharingStarted.WhileSubscribed(5000),
-                CountriesInformationUiState.Loading
+                CountriesPhonePrefixUiState.Loading
             )
 
     private val _username = MutableLiveData<String>()
