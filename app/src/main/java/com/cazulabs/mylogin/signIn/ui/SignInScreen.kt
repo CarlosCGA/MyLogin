@@ -237,7 +237,7 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
 fun PhoneWithPrefixFlow(
     modifier: Modifier = Modifier,
     phonePrefix: String = "",
-    onPhonePrefixChange: (String) -> Unit = {},
+    onPhonePrefixChange: (String) -> Unit,
     uiState: CountriesPhonePrefixUiState,
     phone: String,
     onValueChange: (String) -> Unit,
@@ -263,6 +263,7 @@ fun PhoneWithPrefixFlow(
                     if (uiState.countriesPhonePrefix.isNotEmpty()) {
                         PhonePrefixDropDownFlow(
                             phonePrefix = phonePrefix,
+                            onPhonePrefixChange = onPhonePrefixChange,
                             countriesPhonePrefix = uiState.countriesPhonePrefix,
                         )
                     } else
@@ -283,6 +284,7 @@ fun PhoneWithPrefixFlow(
 fun PhonePrefixDropDownFlow(
     countriesPhonePrefix: List<CountryPhonePrefixModel>,
     phonePrefix: String,
+    onPhonePrefixChange: (String) -> Unit,
 ) {
     var isExpanded by rememberSaveable {
         mutableStateOf(false)
@@ -303,6 +305,7 @@ fun PhonePrefixDropDownFlow(
                     },
                     onClick = {
                         itemSelected = country.dialCode
+                        onPhonePrefixChange(country.dialCode)
                         isExpanded = false
                     }
                 )
