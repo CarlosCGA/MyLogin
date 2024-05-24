@@ -12,11 +12,6 @@ interface CountriesInformationDAO {
     @Query("SELECT * FROM countries")
     fun getCountriesInformation(): Flow<List<CountryInformationEntity>>
 
-    /*
-        @Query("SELECT * FROM CountryInformationEntity")
-        fun getCountriesInformation(): Flow<List<CountryInformationEntity>>
-     */
-
     @Query("SELECT id, name, emoji, dial_code FROM countries")
     fun getCountriesPhonePrefix(): List<CountryInformationEntity>
 
