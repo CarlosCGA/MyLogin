@@ -39,7 +39,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import com.cazulabs.mylogin.core.ui.components.BackScreenButton
 import com.cazulabs.mylogin.core.ui.components.textFields.Email
-import com.cazulabs.mylogin.core.ui.components.textFields.MenuItem
 import com.cazulabs.mylogin.core.ui.components.textFields.Password
 import com.cazulabs.mylogin.core.ui.components.textFields.Username
 import com.cazulabs.mylogin.countriesInformation.data.model.CountryPhonePrefixModel
@@ -262,7 +261,7 @@ fun PhoneWithPrefixFlow(
 
                 is CountriesPhonePrefixUiState.Success -> {
                     if (uiState.countriesPhonePrefix.isNotEmpty()) {
-                        PhonePrefixDropDownFlow2(
+                        PhonePrefixDropDownFlow(
                             phonePrefix = phonePrefix,
                             countriesPhonePrefix = uiState.countriesPhonePrefix,
                         )
@@ -282,38 +281,6 @@ fun PhoneWithPrefixFlow(
 
 @Composable
 fun PhonePrefixDropDownFlow(
-    countriesPhonePrefix: List<CountryPhonePrefixModel>,
-    phonePrefix: String,
-) {
-    var isExpanded by rememberSaveable {
-        mutableStateOf(false)
-    }
-
-    var itemSelected by rememberSaveable {
-        mutableStateOf(phonePrefix)
-    }
-
-    Text(modifier = Modifier.clickable { isExpanded = true }, text = itemSelected)
-
-    DropdownMenu(expanded = isExpanded, onDismissRequest = { isExpanded = false }) {
-        countriesPhonePrefix.map { country ->
-            if (country.dialCode.isNotEmpty()) {
-                DropdownMenuItem(
-                    text = {
-                        MenuItem(country = country)
-                    },
-                    onClick = {
-                        itemSelected = country.dialCode
-                        isExpanded = false
-                    }
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun PhonePrefixDropDownFlow2(
     countriesPhonePrefix: List<CountryPhonePrefixModel>,
     phonePrefix: String,
 ) {
