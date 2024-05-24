@@ -127,7 +127,7 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             )
         }
         Spacer(modifier = Modifier.size(8.dp))
-        PhoneWithPrefixFlow(
+        PhoneWithPrefix(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 32.dp),
@@ -156,36 +156,6 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
             },
             signInViewModel = signInViewModel
         )
-        /*
-        PhoneWithPrefix(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 32.dp),
-            countriesPhonePrefix = countriesPhonePrefix,
-            phonePrefix = phonePrefix,
-            onPhonePrefixChange = { newPhonePrefix ->
-                signInViewModel.onSignInChanged(
-                    username,
-                    email,
-                    newPhonePrefix,
-                    phone,
-                    password,
-                    confirmPassword
-                )
-            },
-            phone = phone,
-            onValueChange = { newPhone ->
-                signInViewModel.onSignInChanged(
-                    username,
-                    email,
-                    phonePrefix,
-                    newPhone,
-                    password,
-                    confirmPassword
-                )
-            }
-        )
-        */
         Spacer(modifier = Modifier.size(8.dp))
         Password(
             modifier = Modifier
@@ -234,7 +204,7 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel) {
 }
 
 @Composable
-fun PhoneWithPrefixFlow(
+fun PhoneWithPrefix(
     modifier: Modifier = Modifier,
     phonePrefix: String = "",
     onPhonePrefixChange: (String) -> Unit,
@@ -261,7 +231,7 @@ fun PhoneWithPrefixFlow(
 
                 is CountriesPhonePrefixUiState.Success -> {
                     if (uiState.countriesPhonePrefix.isNotEmpty()) {
-                        PhonePrefixDropDownFlow(
+                        PhonePrefixDropDown(
                             phonePrefix = phonePrefix,
                             onPhonePrefixChange = onPhonePrefixChange,
                             countriesPhonePrefix = uiState.countriesPhonePrefix,
@@ -281,7 +251,7 @@ fun PhoneWithPrefixFlow(
 }
 
 @Composable
-fun PhonePrefixDropDownFlow(
+fun PhonePrefixDropDown(
     countriesPhonePrefix: List<CountryPhonePrefixModel>,
     phonePrefix: String,
     onPhonePrefixChange: (String) -> Unit,
@@ -301,7 +271,7 @@ fun PhonePrefixDropDownFlow(
             if (country.dialCode.isNotEmpty()) {
                 DropdownMenuItem(
                     text = {
-                        MenuItemFlow(country = country)
+                        MenuItem(country = country)
                     },
                     onClick = {
                         itemSelected = country.dialCode
@@ -315,7 +285,7 @@ fun PhonePrefixDropDownFlow(
 }
 
 @Composable
-fun MenuItemFlow(country: CountryPhonePrefixModel) {
+fun MenuItem(country: CountryPhonePrefixModel) {
     Row {
         Text(text = country.emoji)
         Spacer(modifier = Modifier.size(4.dp))
