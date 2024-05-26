@@ -26,7 +26,7 @@ jobs:
       - name: Generate version.txt for Hub release
         run: ./gradlew appRelease
       - name: Releasing using Hub
-        uses: valley-fordham/action-release-debugapk@master
+        uses: CarlosCGA/action-release-debugapk@master
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           APP_FOLDER: app
