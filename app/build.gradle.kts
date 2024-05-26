@@ -5,9 +5,24 @@ plugins {
     id("com.google.dagger.hilt.android")
 }
 
+
 android {
     namespace = "com.cazulabs.mylogin"
     compileSdk = 34
+
+    task("appRelease") {
+        doLast {
+            file("./version.txt").writeText(android.defaultConfig.versionName.toString())
+        }
+    }
+
+    /*
+    task generateVersionTxt {
+        doLast {
+            file("./version.txt").text = android.defaultConfig.versionName
+        }
+    }
+    */
 
     defaultConfig {
         applicationId = "com.cazulabs.mylogin"
