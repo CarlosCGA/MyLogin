@@ -22,6 +22,8 @@ jobs:
         run: ./gradlew assembleDebug
       - name: Generate version.txt for Hub release
         run: ./gradlew appRelease
+      - name: Mark github workspace as safe
+        run: git config --global --add safe.directory /github/workspace
       - name: Releasing using Hub
         uses: valley-fordham/action-release-debugapk@master
         env:
