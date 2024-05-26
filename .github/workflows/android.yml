@@ -25,6 +25,6 @@ jobs:
       - name: Releasing using Hub
         uses: valley-fordham/action-release-debugapk@master
         env:
-          GITHUB_TOKEN: ${{ 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 }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
           APP_FOLDER: app
           RELEASE_TITLE: New Build
