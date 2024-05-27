@@ -25,8 +25,9 @@ jobs:
         run: ./gradlew assembleDebug
       - name: Generate version.txt for Hub release
         run: ./gradlew appRelease
-      - name: Releasing using Hub
-        uses: ShaunLWM/action-release-debugapk@master
+      - name: Build & Publish Debug APK
+        uses: ShaunLWM/action-release-debugapk@0.0.7
+
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           APP_FOLDER: app
