@@ -25,7 +25,7 @@ jobs:
         run: ./gradlew assembleDebug
       - name: Generate version.txt for Hub release
         run: ./gradlew appRelease
-      - name: Build & Publish Debug APK task
+      - name: Releasing using Hub
         uses: CarlosCGA/action-release-debugapk@master
 
         env:
