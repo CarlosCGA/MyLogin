@@ -16,14 +16,6 @@ android {
         }
     }
 
-    /*
-    task generateVersionTxt {
-        doLast {
-            file("./version.txt").text = android.defaultConfig.versionName
-        }
-    }
-    */
-
     defaultConfig {
         applicationId = "com.cazulabs.mylogin"
         minSdk = 26
