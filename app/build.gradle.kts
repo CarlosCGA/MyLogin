@@ -19,6 +19,25 @@ android {
         }
     }
 
+    productFlavors {
+        create("free") {
+            dimension = "app"
+            val appName = "My Login"
+            manifestPlaceholders["appName"] = appName
+            applicationIdSuffix = ".demo"
+            versionName = "3.0"
+            versionNameSuffix = ".3"
+            versionCode = (versionName + versionNameSuffix).replace(".", "").toInt()
+            val apkName = "${appName}_$versionName$versionNameSuffix($versionCode).apk"
+
+            // change app name block below
+            buildOutputs.all {
+                val variantOutputImpl = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+                variantOutputImpl.outputFileName =  apkName
+            }
+        }
+    }
+
     defaultConfig {
         applicationId = "com.cazulabs.mylogin"
         minSdk = 26
