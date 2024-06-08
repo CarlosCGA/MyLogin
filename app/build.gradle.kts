@@ -15,7 +15,7 @@ android {
             if(android.defaultConfig.versionName.isNullOrEmpty())
                 file("./version.txt").writeText("almorrana")
             else
-                file("./version.txt").writeText(android.defaultConfig.versionName.toString())
+                file("./version.txt").writeText(android.defaultConfig.versionName.toString() + " OSEBUCO")
         }
     }
 
