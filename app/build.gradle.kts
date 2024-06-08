@@ -12,7 +12,10 @@ android {
 
     task("appRelease") {
         doLast {
-            file("./version.txt").writeText(android.defaultConfig.versionName.toString())
+            if(android.defaultConfig.versionName.isNullOrEmpty())
+                file("./version.txt").writeText("almorrana")
+            else
+                file("./version.txt").writeText(android.defaultConfig.versionName.toString())
         }
     }
 
