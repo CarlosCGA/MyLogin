@@ -22,10 +22,10 @@ android {
         }
     }
 
-
+    flavorDimensions ("debug")
     productFlavors {
         create("free") {
-            dimension = "app"
+            dimension = "debug"
             val appName = "My Login"
             manifestPlaceholders["appName"] = appName
             applicationIdSuffix = ".demo"
