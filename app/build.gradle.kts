@@ -22,7 +22,7 @@ android {
         }
     }
 
-    /*
+
     productFlavors {
         create("free") {
             dimension = "app"
@@ -41,7 +41,7 @@ android {
             }
         }
     }
-    */
+
 
     defaultConfig {
         applicationId = "com.cazulabs.mylogin"
