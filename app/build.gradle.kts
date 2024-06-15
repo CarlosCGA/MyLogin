@@ -26,13 +26,13 @@ android {
     productFlavors {
         create("free") {
             dimension = "debug"
-            val appName = "My Login"
+            val appName = "My_Login"
             manifestPlaceholders["appName"] = appName
             applicationIdSuffix = ".demo"
             versionName = "3.0"
             versionNameSuffix = ".3"
             versionCode = (versionName + versionNameSuffix).replace(".", "").toInt()
-            val apkName = "${appName}_$versionName$versionNameSuffix.apk"
+            val apkName = "${appName}_$versionName$versionNameSuffix-debug.apk"
 
             // change app name block below
             buildOutputs.all {
