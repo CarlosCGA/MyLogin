@@ -32,7 +32,7 @@ android {
             versionName = "3.0"
             versionNameSuffix = ".3"
             versionCode = (versionName + versionNameSuffix).replace(".", "").toInt()
-            val apkName = "${appName}_$versionName$versionNameSuffix($versionCode)debug.apk"
+            val apkName = "${appName}_$versionName$versionNameSuffix.apk"
 
             // change app name block below
             buildOutputs.all {
