@@ -12,7 +12,7 @@ android {
 
     task("appRelease") {
         doLast {
-            file("./versionName.txt").writeText("SOY GIGANTON")
+            file("./versionName.txt").writeText("soy giganton")
             /*
             if(android.defaultConfig.versionName.isNullOrEmpty())
                 file("./version.txt").writeText("almorrana")
