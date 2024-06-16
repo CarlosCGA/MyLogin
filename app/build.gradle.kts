@@ -13,8 +13,10 @@ android {
     task("appRelease") {
         doLast {
             //file("./versionName.txt").writeText("versionName 1.0.0")
-            file("./versionName.txt").writeText("soy giganton")
-            //file("./version.txt").writeText(android.defaultConfig.versionName.toString())
+            //file("./versionName.txt").writeText("soy giganton")
+
+            file("./version.txt").writeText(android.defaultConfig.versionName.toString())
+
             /*
             if(android.productFlavors["free"] != null) {
                 if (android.productFlavors["free"].versionName != null)
