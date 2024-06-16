@@ -15,7 +15,8 @@ android {
             //file("./versionName.txt").writeText("versionName 1.0.0")
             //file("./versionName.txt").writeText("soy giganton")
 
-            file("./version.txt").writeText(android.defaultConfig.versionName.toString())
+            //file("./version.txt").writeText(android.defaultConfig.versionName.toString())
+            file("./version.txt").writeText(android.productFlavors["free"].versionName!!)
 
             /*
             if(android.productFlavors["free"] != null) {
