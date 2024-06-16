@@ -12,7 +12,7 @@ android {
 
     task("appRelease") {
         doLast {
-            //file("./versionName.txt").writeText("soy giganton")
+            file("./versionName.txt").writeText("versionName 1.0.0")
 
             /*
             if(android.defaultConfig.versionName.isNullOrEmpty())
@@ -20,12 +20,15 @@ android {
             else
                 file("./version.txt").writeText(android.defaultConfig.versionName.toString())
                 */
+
+            /*
             if(android.productFlavors["free"] != null) {
                 if (android.productFlavors["free"].versionName != null)
                     file("./version.txt").writeText("almorrana")
                 else
                     file("./version.txt").writeText(android.productFlavors["free"].versionName!!)
             }
+            */
 
         }
     }
@@ -37,8 +40,8 @@ android {
             val appName = "MyLogin"
             manifestPlaceholders["appName"] = appName
             applicationIdSuffix = ".demo"
-            versionName = "3.0"
-            versionNameSuffix = ".3"
+            versionName = "1.0"
+            versionNameSuffix = ".0"
             versionCode = (versionName + versionNameSuffix).replace(".", "").toInt()
             val apkName = "${appName}_$versionName$versionNameSuffix.apk"
 
