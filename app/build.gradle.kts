@@ -16,7 +16,7 @@ android {
             //file("./versionName.txt").writeText("soy giganton")
 
             //file("./version.txt").writeText(android.defaultConfig.versionName.toString())
-            file("./version.txt").writeText(android.productFlavors["free"].versionName!!)
+            file("./version.txt").writeText("NOCILLA " + android.productFlavors["free"].versionName!!)
 
             /*
             if(android.productFlavors["free"] != null) {
