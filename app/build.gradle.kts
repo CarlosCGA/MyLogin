@@ -6,7 +6,6 @@ plugins {
 }
 
 
-
 android {
     namespace = "com.cazulabs.mylogin"
     compileSdk = 34
