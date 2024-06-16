@@ -9,10 +9,11 @@ plugins {
 android {
     namespace = "com.cazulabs.mylogin"
     compileSdk = 34
+    version = "3.2.1"
 
     task("appRelease") {
         doLast {
-            file("./versionName.txt").writeText("1.0.0")
+            file("./versionName.txt").writeText(version.toString())
             //file("./versionName.txt").writeText("soy giganton")
 
             //file("./version.txt").writeText(android.defaultConfig.versionName.toString())
