@@ -15,13 +15,6 @@ android {
             file("./versionName.txt").writeText("versionName 1.0.0")
 
             /*
-            if(android.defaultConfig.versionName.isNullOrEmpty())
-                file("./version.txt").writeText("almorrana")
-            else
-                file("./version.txt").writeText(android.defaultConfig.versionName.toString())
-                */
-
-            /*
             if(android.productFlavors["free"] != null) {
                 if (android.productFlavors["free"].versionName != null)
                     file("./version.txt").writeText("almorrana")
