@@ -9,7 +9,7 @@ plugins {
 android {
     namespace = "com.cazulabs.mylogin"
     compileSdk = 34
-    version = "3.0.1"
+    version = "3.0.2"
 
     task("appRelease") {
         doLast {
