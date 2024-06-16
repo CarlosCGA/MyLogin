@@ -12,13 +12,21 @@ android {
 
     task("appRelease") {
         doLast {
-            file("./versionName.txt").writeText("soy giganton")
+            //file("./versionName.txt").writeText("soy giganton")
+
             /*
             if(android.defaultConfig.versionName.isNullOrEmpty())
                 file("./version.txt").writeText("almorrana")
             else
-                file("./version.txt").writeText(android.defaultConfig.versionName.toString() + " OSEBUCO")
+                file("./version.txt").writeText(android.defaultConfig.versionName.toString())
                 */
+            if(android.productFlavors["free"] != null) {
+                if (android.productFlavors["free"].versionName != null)
+                    file("./version.txt").writeText("almorrana")
+                else
+                    file("./version.txt").writeText(android.productFlavors["free"].versionName!!)
+            }
+
         }
     }
 
@@ -26,13 +34,13 @@ android {
     productFlavors {
         create("free") {
             dimension = "debug"
-            val appName = "My_Login"
+            val appName = "MyLogin"
             manifestPlaceholders["appName"] = appName
             applicationIdSuffix = ".demo"
             versionName = "3.0"
             versionNameSuffix = ".3"
             versionCode = (versionName + versionNameSuffix).replace(".", "").toInt()
-            val apkName = "${appName}_$versionName$versionNameSuffix-debug.apk"
+            val apkName = "${appName}_$versionName$versionNameSuffix.apk"
 
             // change app name block below
             buildOutputs.all {
