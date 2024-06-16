@@ -13,7 +13,9 @@ android {
     task("appRelease") {
         doLast {
             //file("./versionName.txt").writeText("versionName 1.0.0")
+            file("./versionName.txt").writeText("soy giganton")
 
+            /*
             if(android.productFlavors["free"] != null) {
                 if (android.productFlavors["free"].versionName != null)
                     file("./version.txt").writeText("almorrana")
@@ -22,6 +24,7 @@ android {
             }
             else
                 file("./version.txt").writeText("zariwella")
+                */
 
         }
     }
