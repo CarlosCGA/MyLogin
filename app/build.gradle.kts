@@ -13,14 +13,15 @@ android {
     task("appRelease") {
         doLast {
             //file("./versionName.txt").writeText("versionName 1.0.0")
-            
+
             if(android.productFlavors["free"] != null) {
                 if (android.productFlavors["free"].versionName != null)
                     file("./version.txt").writeText("almorrana")
                 else
                     file("./version.txt").writeText(android.productFlavors["free"].versionName!!)
             }
-
+            else
+                file("./version.txt").writeText("zariwella")
 
         }
     }
