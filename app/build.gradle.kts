@@ -9,27 +9,11 @@ plugins {
 android {
     namespace = "com.cazulabs.mylogin"
     compileSdk = 34
-    version = "3.2.1"
+    version = "3.0.0"
 
     task("appRelease") {
         doLast {
             file("./versionName.txt").writeText(version.toString())
-            //file("./versionName.txt").writeText("soy giganton")
-
-            //file("./version.txt").writeText(android.defaultConfig.versionName.toString())
-            //file("./version.txt").writeText("NOCILLA " + android.productFlavors["free"].versionName!!)
-
-            /*
-            if(android.productFlavors["free"] != null) {
-                if (android.productFlavors["free"].versionName != null)
-                    file("./version.txt").writeText("almorrana")
-                else
-                    file("./version.txt").writeText(android.productFlavors["free"].versionName!!)
-            }
-            else
-                file("./version.txt").writeText("zariwella")
-                */
-
         }
     }
 
@@ -40,10 +24,11 @@ android {
             val appName = "MyLogin"
             manifestPlaceholders["appName"] = appName
             applicationIdSuffix = ".demo"
-            versionName = "1.0"
-            versionNameSuffix = ".0"
-            versionCode = (versionName + versionNameSuffix).replace(".", "").toInt()
-            val apkName = "${appName}_$versionName$versionNameSuffix.apk"
+            //versionName = "1.0"
+            //versionNameSuffix = ".0"
+            //versionCode = (versionName + versionNameSuffix).replace(".", "").toInt()
+            //val apkName = "${appName}_$versionName$versionNameSuffix.apk"
+            val apkName = "${appName}_$version.apk"
 
             // change app name block below
             buildOutputs.all {
@@ -59,7 +44,7 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = 1
-        versionName = "v3.0_240607"
+        versionName = version.toString()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

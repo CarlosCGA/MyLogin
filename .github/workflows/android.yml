@@ -31,6 +31,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_WENO }}
           APP_FOLDER: app
-          RELEASE_TITLE: New Build
+          #RELEASE_TITLE: New Build
           PWD: /github/workspace
-
