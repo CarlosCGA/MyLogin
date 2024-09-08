@@ -38,15 +38,32 @@ This architecture facilitates the separation of concerns, enhancing code maintai
 - ViewModel: It acts as an intermediary between the Model and the View, managing presentation logic and updating the UI.
 
 ## Screenshots
-[In progress...]
-<!--
-[<img src="/assets/HelloWorld.png" align="left"
-width="200"
-hspace="10" vspace="10">](/assets/HelloWorld.png)
-[<img src="/readme/Wallabag%20Article%20View.png" align="center"
-width="200"
-hspace="10" vspace="10">](/readme/Wallabag%20Article%20View.png)
--->
+<!--[In progress...]-->
+
+[<img src="/assets/LogInPhoneFilled.jpg" align="right"
+width="200">](/assets/LogInPhoneFilled.jpg)
+
+[<img src="/assets/LogInPhone.jpg" align="right"
+width="200">](/assets/LogInPhone.jpg)
+
+[<img src="/assets/LogInEmail.jpg" align="left"
+width="200">](/assets/LogInEmail.jpg)
+
+[<img src="/assets/LogInEmailFilled.jpg" align="center"
+width="200">](/assets/LogInEmailFilled.jpg)
+
+[<img src="/assets/HelloWorld.jpg" align="right"
+width="200">](/assets/HelloWorld.jpg)
+
+[<img src="/assets/SignIn.jpg" align="right"
+width="200">](/assets/SignIn.jpg)
+
+[<img src="/assets/ResetPasswordEmail.jpg" align="left"
+width="200">](/assets/ResetPasswordEmail.jpg)
+
+[<img src="/assets/ResetPasswordPhone.jpg" align="center"
+width="200">](/assets/ResetPasswordPhone.jpg)
+
 
 ## Contributing
 
