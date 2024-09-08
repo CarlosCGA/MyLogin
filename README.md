@@ -38,13 +38,16 @@ This architecture facilitates the separation of concerns, enhancing code maintai
 - ViewModel: It acts as an intermediary between the Model and the View, managing presentation logic and updating the UI.
 
 ## Screenshots
-
 [In progress...]
 <!--
-[<img src="/readme/Wallabag%20Reading%20List.png" align="left"
+[<img src="/assets/HelloWorld.png" align="left"
 width="200"
-hspace="10" vspace="10">](/readme/Wallabag%20Reading%20List.png)
+hspace="10" vspace="10">](/assets/HelloWorld.png)
 [<img src="/readme/Wallabag%20Article%20View.png" align="center"
 width="200"
 hspace="10" vspace="10">](/readme/Wallabag%20Article%20View.png)
 -->
+
+## Contributing
+
+You can help the project by reporting bugs and making suggestions [here](https://github.com/CarlosCGA/myLogin/issues).
