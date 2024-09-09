@@ -1,5 +1,4 @@
-# MyLogin - Android App ![Build status](https://github.com/wallabag/android-app/workflows/CI/badge.svg?branch=master)
-<!-- TODO UPDATE TO CORRECT LINK -->
+# MyLogin - Android App ![Build status](https://github.com/CarlosCGA/MyLogin/actions/workflows/android.yml/badge.svg)
 
 <p align="center">
     <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" alt="App icon" width="50"/>
