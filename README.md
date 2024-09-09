@@ -2,9 +2,12 @@
 <!-- TODO UPDATE TO CORRECT LINK -->
 
 <img src="/assets/app-icon.png" align="center"
-width="200" hspace="10" vspace="10">
+width="200" hspace="10" vspace="10"
 
+<p align="center">
+    <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" alt="App icon" width="200"/>
 MyLogin is a self-developed app that includes an initial base login.
+</p>
 
 <!--
 [App] is available on the Google Play Store.
