@@ -27,6 +27,12 @@
 MyLogin is an Android application, fully developed by Carlos Cañete in Android Studio using the Android SDK.
 This application is a creation from Carlos Cañete.
 
+
+## Layout - Jetpack Compose
+
+Modern UI toolkit for building native Android apps using a declarative approach. It simplifies UI development by allowing developers to define how the UI should look directly in code, rather than using XML. It's used to create responsive and dynamic user interfaces more efficiently.
+
+
 ## Dependencies
 
 - Retrofit: It facilitates the creation of HTTP clients to interact with REST APIs. It automatically converts API responses into objects, simplifying requests and data handling over the network within the application.
