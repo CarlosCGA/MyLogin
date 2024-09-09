@@ -1,13 +1,13 @@
 # MyLogin - Android App ![Build status](https://github.com/wallabag/android-app/workflows/CI/badge.svg?branch=master)
 <!-- TODO UPDATE TO CORRECT LINK -->
 
-<img src="/assets/app-icon.png" align="center"
-width="200" hspace="10" vspace="10"
-
 <p align="center">
-    <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" alt="App icon" width="200"/>
-MyLogin is a self-developed app that includes an initial base login.
+    <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" alt="App icon" width="50"/>
+    <br />
+    <b>MyLogin is a self-developed app that includes an initial base login</b>
 </p>
+
+
 
 <!--
 [App] is available on the Google Play Store.
