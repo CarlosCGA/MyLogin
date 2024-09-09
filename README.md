@@ -1,12 +1,13 @@
-# MyLogin - Android App ![Build status](https://github.com/CarlosCGA/MyLogin/actions/workflows/android.yml/badge.svg)
+# MyLogin - Android App
 
 <p align="center">
     <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" alt="App icon" width="50"/>
     <br />
     <b>MyLogin is a self-developed app that includes an initial base login</b>
+    <br />
+    <br />
+    <img src="https://github.com/CarlosCGA/MyLogin/actions/workflows/android.yml/badge.svg" alt="CI badge sign" />
 </p>
-
-
 
 <!--
 [App] is available on the Google Play Store.
