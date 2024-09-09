@@ -19,6 +19,7 @@ MyLogin is a self-developed app that includes an initial base login.
         </p>
 -->
 
+
 ## About
 
 MyLogin is an Android application, fully developed by Carlos Cañete in Android Studio using the Android SDK.
@@ -29,6 +30,7 @@ This application is a creation from Carlos Cañete.
 - Retrofit: It facilitates the creation of HTTP clients to interact with REST APIs. It automatically converts API responses into objects, simplifying requests and data handling over the network within the application.
 - DaggerHilt: It simplifies dependency injection by integrating Dagger with the Android components' lifecycle. Hilt automates the creation and management of dependencies, making configuration easier and improving development efficiency in Android.
 
+
 ## Architecture - MVVM (Model-View-ViewModel)
 
 This architecture facilitates the separation of concerns, enhancing code maintainability and scalability by dividing it into three main components:
@@ -38,31 +40,17 @@ This architecture facilitates the separation of concerns, enhancing code maintai
 - ViewModel: It acts as an intermediary between the Model and the View, managing presentation logic and updating the UI.
 
 ## Screenshots
-<!--[In progress...]-->
 
-[<img src="/assets/LogInPhoneFilled.jpg" align="right"
-width="200">](/assets/LogInPhoneFilled.jpg)
-
-[<img src="/assets/LogInPhone.jpg" align="right"
-width="200">](/assets/LogInPhone.jpg)
-
-[<img src="/assets/LogInEmail.jpg" align="left"
-width="200">](/assets/LogInEmail.jpg)
-
-[<img src="/assets/LogInEmailFilled.jpg" align="center"
-width="200">](/assets/LogInEmailFilled.jpg)
-
-[<img src="/assets/HelloWorld.jpg" align="right"
-width="200">](/assets/HelloWorld.jpg)
-
-[<img src="/assets/SignIn.jpg" align="right"
-width="200">](/assets/SignIn.jpg)
-
-[<img src="/assets/ResetPasswordEmail.jpg" align="left"
-width="200">](/assets/ResetPasswordEmail.jpg)
-
-[<img src="/assets/ResetPasswordPhone.jpg" align="center"
-width="200">](/assets/ResetPasswordPhone.jpg)
+<p align="center">
+    <img src="/assets/LogInEmail.jpg" alt="LogIn via email" width="200"/>
+    <img src="/assets/LogInEmailFilled.jpg" alt="LogIn via email filled" width="200"/>
+    <img src="/assets/LogInPhone.jpg" alt="LogIn via phone" width="200"/>
+    <img src="/assets/LogInPhoneFilled.jpg" alt="LogIn via phone filled" width="200"/>
+    <img src="/assets/ResetPasswordEmail.jpg" alt="Reset password via phone" width="200"/>
+     <img src="/assets/ResetPasswordPhone.jpg" alt="Reset password via phone" width="200"/>
+    <img src="/assets/SignIn.jpg" alt="SignIn" width="200"/>
+    <img src="/assets/HelloWorld.jpg" alt="LogIn successful" width="200"/>
+</p>
 
 
 ## Contributing
