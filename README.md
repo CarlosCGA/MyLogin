@@ -9,20 +9,6 @@
     <img src="https://github.com/CarlosCGA/MyLogin/actions/workflows/android.yml/badge.svg" alt="CI badge sign" />
 </p>
 
-<!--
-[App] is available on the Google Play Store.
-
-<p align="left">
-<a href="https://play.google.com/store/apps/">
-    <img alt="Get it on Google Play"
-        height="80"
-        src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
-</a>  
-
-        </p>
--->
-
-
 ## About
 
 MyLogin is an Android application, fully developed by Carlos Cañete in Android Studio using the Android SDK.
@@ -36,8 +22,11 @@ Modern UI toolkit for building native Android apps using a declarative approach.
 
 ## Dependencies
 
-- Retrofit: It facilitates the creation of HTTP clients to interact with REST APIs. It automatically converts API responses into objects, simplifying requests and data handling over the network within the application.
-- DaggerHilt: It simplifies dependency injection by integrating Dagger with the Android components' lifecycle. Hilt automates the creation and management of dependencies, making configuration easier and improving development efficiency in Android.
+- `Retrofit`: It facilitates the creation of HTTP clients to interact with REST APIs. It automatically converts API responses into objects, simplifying requests and data handling over the network within the application.
+- `DaggerHilt`: It simplifies dependency injection by integrating Dagger with the Android components' lifecycle. Hilt automates the creation and management of dependencies, making configuration easier and improving development efficiency in Android.
+- `LiveData`: It is an Android Architecture Component that allows UI components to observe data changes while respecting their lifecycle, preventing memory leaks and crashes. It updates observers automatically, simplifying reactive UI patterns in MVVM architecture. MutableLiveData enables data updates, while LiveData ensures read-only access from the UI.
+- `Navigation`: Simplifies in-app navigation, managing fragment and activity transitions, and handling complex navigation flows. It enables safe argument passing between destinations and offers features like deep linking and back stack management. Designed for modularity, Navigation integrates seamlessly with ViewModel and LiveData in an MVVM architecture.
+- `Material Icons`: Provides an expanded set of Material Design icons for use in Jetpack Compose, covering a wide range of categories like navigation and communication. It allows easy integration of consistent, ready-to-use icons without external assets.
 
 
 ## Architecture - MVVM (Model-View-ViewModel)
