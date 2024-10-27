@@ -9,7 +9,7 @@ plugins {
 android {
     namespace = "com.cazulabs.mylogin"
     compileSdk = 34
-    version = "3.0.3"
+    version = "3.0.4"
 
     task("appRelease") {
         doLast {
@@ -24,13 +24,8 @@ android {
             val appName = "MyLogin"
             manifestPlaceholders["appName"] = appName
             applicationIdSuffix = ".demo"
-            //versionName = "1.0"
-            //versionNameSuffix = ".0"
-            //versionCode = (versionName + versionNameSuffix).replace(".", "").toInt()
-            //val apkName = "${appName}_$versionName$versionNameSuffix.apk"
             val apkName = "${appName}_$version.apk"
 
-            // change app name block below
             buildOutputs.all {
                 val variantOutputImpl = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
                 variantOutputImpl.outputFileName =  apkName
