@@ -27,7 +27,7 @@ jobs:
         uses: CarlosCGA/action-release-debugapk@master
 
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_WENO }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
           APP_FOLDER: app
           #RELEASE_TITLE: New Build
           PWD: /github/workspace
